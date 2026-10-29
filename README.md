@@ -228,6 +228,8 @@ Proyek ini juga menjadi sarana penerapan praktik pengembangan perangkat lunak ya
 
 **Project Lead / Developer:** Tri Cahya Wibawa
 
+**Team:** Tim Magang PT Mirota KSM
+
 **Organization:** PT Mirota KSM
 
 **Project Type:** Corporate Website Revitalization
