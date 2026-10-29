@@ -36,15 +36,19 @@ Website dirancang untuk menjadi pusat informasi digital perusahaan yang dapat di
 
 ## 🛠️ Tech Stack
 
-| Teknologi    | Penggunaan                                           |
-| ------------ | ---------------------------------------------------- |
-| PHP ^8.3     | Bahasa pemrograman backend                           |
-| Laravel 12   | Framework aplikasi web                               |
-| Blade        | Template engine                                      |
-| Tailwind CSS | Styling dan antarmuka responsif                      |
-| Vite         | Asset bundling dan development server                |
-| MySQL        | Database, apabila digunakan dalam konfigurasi proyek |
-| Git & GitHub | Version control dan kolaborasi                       |
+| Teknologi | Versi / Standar | Penggunaan |
+|---|---|---|
+| PHP | 8.3.x (standar tim) | Bahasa pemrograman backend |
+| Laravel | 12.x | Framework aplikasi web |
+| Blade | Laravel 12 | Template engine |
+| Tailwind CSS | Sesuai `package.json` | Styling dan antarmuka responsif |
+| Vite | Sesuai `package.json` | Asset bundling dan development server |
+| Database | Sesuai konfigurasi proyek | Penyimpanan data aplikasi |
+| Composer | Versi yang kompatibel | Dependency management PHP |
+| Node.js & npm | Sesuai kebutuhan Vite | Dependency management frontend |
+| Git & GitHub | Sesuai workflow tim | Version control dan kolaborasi |
+
+> **Environment consistency:** Seluruh anggota tim wajib menggunakan versi runtime dan dependency yang kompatibel dengan konfigurasi proyek. Perubahan versi utama harus melalui kesepakatan tim dan pengujian sebelum diterapkan.
 
 ## 📂 Project Structure
 
