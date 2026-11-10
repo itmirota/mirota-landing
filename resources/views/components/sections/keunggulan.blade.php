@@ -1,75 +1,25 @@
 <section class="py-20 bg-white">
     <div class="container mx-auto px-6">
 
-        <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto mb-14">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
-                Mengapa Memilih PT Mirota KSM?
+                {{ __('home.why_title') }}
             </h2>
-
             <p class="mt-4 text-gray-600">
-                Berpengalaman dalam produksi susu bubuk dan minuman serbuk
-                dengan standar mutu yang terjaga untuk kebutuhan bisnis Anda.
+                {{ __('home.why_text') }}
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            <div class="p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
-                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    🏭
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach(trans('home.features') as $feature)
+                <div class="p-6 rounded-2xl border border-gray-100 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                    <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-2xl">
+                        {{ $feature['icon'] }}
+                    </div>
+                    <h3 class="mb-2 text-lg font-semibold text-gray-900">{{ $feature['title'] }}</h3>
+                    <p class="text-sm text-gray-600">{{ $feature['text'] }}</p>
                 </div>
-
-                <h3 class="font-semibold text-lg mb-2">
-                    Fasilitas Produksi Modern
-                </h3>
-
-                <p class="text-gray-600 text-sm">
-                    Didukung mesin produksi modern untuk menjaga kualitas dan konsistensi produk.
-                </p>
-            </div>
-
-            <div class="p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
-                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    ✅
-                </div>
-
-                <h3 class="font-semibold text-lg mb-2">
-                    Standar Mutu Terjamin
-                </h3>
-
-                <p class="text-gray-600 text-sm">
-                    Proses produksi mengikuti standar kualitas yang ketat dan terukur.
-                </p>
-            </div>
-
-            <div class="p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
-                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    🤝
-                </div>
-
-                <h3 class="font-semibold text-lg mb-2">
-                    Layanan Maklon
-                </h3>
-
-                <p class="text-gray-600 text-sm">
-                    Mendukung pengembangan produk private label sesuai kebutuhan brand Anda.
-                </p>
-            </div>
-
-            <div class="p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
-                <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    🚚
-                </div>
-
-                <h3 class="font-semibold text-lg mb-2">
-                    Distribusi Luas
-                </h3>
-
-                <p class="text-gray-600 text-sm">
-                    Pengalaman mendukung distribusi produk ke berbagai wilayah Indonesia.
-                </p>
-            </div>
-
+            @endforeach
         </div>
 
     </div>

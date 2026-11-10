@@ -1,0 +1,32 @@
+<?php
+return [
+    'title'   => 'Privacy Policy',
+    'updated' => 'Last updated: [fill in date]',
+    'toc'     => 'Contents',
+
+    'sections' => [
+        ['title' => 'Introduction',
+         'text'  => 'PT Mirota KSM respects your privacy. This policy explains how we collect, use, and protect your personal data when you visit this website.'],
+        ['title' => 'Data We Collect',
+         'text'  => 'We may collect the following data:',
+         'items' => ['Data you provide through the contact form: name, email, phone number, company name, and message.',
+                     'Technical visit data, such as IP address, browser type, and pages viewed.']],
+        ['title' => 'How We Use Data',
+         'text'  => 'Data is used to:',
+         'items' => ['Respond to inquiries, complaints, and contract manufacturing requests.',
+                     'Improve our services and the website experience.',
+                     'Comply with applicable legal obligations.']],
+        ['title' => 'Data Sharing',
+         'text'  => 'We do not sell your personal data. Data is only shared with third parties that help operate the website, or when required by law.'],
+        ['title' => 'Cookies',
+         'text'  => 'This site may use cookies to store preferences such as language and to keep forms secure. You can manage or disable cookies in your browser settings.'],
+        ['title' => 'Data Security',
+         'text'  => 'We apply reasonable technical and organizational measures to protect data against unauthorized access, alteration, or misuse.'],
+        ['title' => 'Your Rights',
+         'text'  => 'Under Indonesian Law No. 27 of 2022 on Personal Data Protection, you may request access to, correction of, or deletion of your personal data by contacting us.'],
+        ['title' => 'Policy Changes',
+         'text'  => 'This policy may be updated from time to time. The latest version is always shown on this page along with its update date.'],
+        ['title' => 'Contact Us',
+         'text'  => 'Questions about this policy can be sent through our Contact Us page.'],
+    ],
+];

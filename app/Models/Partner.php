@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Partner extends Model
+{
+    protected $fillable = ['name', 'logo', 'website', 'sort_order', 'is_published'];
+
+    protected function casts(): array
+    {
+        return ['is_published' => 'boolean'];
+    }
+}

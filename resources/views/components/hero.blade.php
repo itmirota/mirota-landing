@@ -1,70 +1,37 @@
-<section class="relative h-screen flex items-center">
+<section class="relative min-h-screen flex items-center">
 
-    <!-- Background Image -->
     <div class="absolute inset-0">
-        <img src="{{ asset('images/building.jpg') }}" 
-             class="w-full h-full object-cover" 
-             alt="Hero Image">
+        <img src="{{ asset('images/building.jpg') }}" alt="PT Mirota KSM"
+             class="w-full h-full object-cover">
     </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20"></div>
 
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/50 bg-opacity-50"></div>
+    <div class="relative container mx-auto px-6 pt-28 pb-16">
+        <div class="max-w-2xl text-white">
 
-    <!-- Content -->
-    <div class="relative container mx-auto px-6">
-        <div class="max-w-xl text-white">
+            <span class="inline-block rounded-full bg-sky-200/90 px-4 py-1 text-xs font-bold uppercase tracking-wider text-primary-dark">
+                {{ __('home.hero_badge') }}
+            </span>
 
-            <h1 class="text-4xl md:text-6xl font-bold leading-none">
-                Produsen Susu Bubuk Berkualitas Tinggi
+            <h1 class="mt-5 text-4xl md:text-6xl font-bold leading-tight">
+                {{ __('home.hero_title') }}
             </h1>
 
-            <p class="mt-4 text-lg text-gray-200">
-                Solusi maklon susu bubuk dengan standar produksi modern, aman, dan terpercaya.
+            <p class="mt-5 text-lg text-gray-200">
+                {{ __('home.hero_text') }}
             </p>
 
-            <div class="mt-6 flex gap-4">
-                <a href="/produk" class="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700">
-                    Lihat Produk
+            <div class="mt-8 flex flex-wrap gap-4">
+                <a href="{{ route('produk.index') }}"
+                   class="rounded-lg bg-sky-200 px-6 py-3 font-semibold text-primary-dark transition hover:brightness-95">
+                    {{ __('home.cta_products') }}
                 </a>
 
-                <a href="/maklon" class="border border-white px-6 py-3 rounded-lg hover:bg-white hover:text-black">
-                    Konsultasi Maklon
-                </a>
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-<section class="bg-gray-50">
-    <div class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center">
-        
-        <!-- Text -->
-        <div class="md:w-1/2 space-y-6">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-                Produsen Susu Bubuk Berkualitas Tinggi
-            </h1>
-
-            <p class="text-lg text-gray-600">
-                PT. Mirota KSM menghadirkan solusi maklon susu bubuk dengan standar produksi modern, aman, dan terpercaya.
-            </p>
-
-            <div class="flex gap-4">
-                <a href="/produk" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
-                    Lihat Produk
-                </a>
-
-                <a href="/maklon" class="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50">
-                    Konsultasi Maklon
+                <a href="{{ url(app()->getLocale().'/maklon') }}"
+                   class="rounded-lg border border-white px-6 py-3 font-semibold transition hover:bg-white hover:text-primary-dark">
+                    {{ __('home.cta_maklon') }}
                 </a>
             </div>
         </div>
-
-        <!-- Image -->
-        <div class="md:w-1/2 mt-10 md:mt-0">
-            <img src="/images/building.jpg" alt="PT Mirota KSM" class="w-full">
-        </div>
-
     </div>
 </section>

@@ -1,0 +1,32 @@
+<?php
+return [
+    'title'   => 'Kebijakan Privasi',
+    'updated' => 'Terakhir diperbarui: [isi tanggal]',
+    'toc'     => 'Daftar Isi',
+
+    'sections' => [
+        ['title' => 'Pendahuluan',
+         'text'  => 'PT Mirota KSM menghargai privasi Anda. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda saat mengunjungi situs web ini.'],
+        ['title' => 'Data yang Kami Kumpulkan',
+         'text'  => 'Kami dapat mengumpulkan data berikut:',
+         'items' => ['Data yang Anda isi melalui formulir kontak: nama, email, nomor telepon, nama perusahaan, dan isi pesan.',
+                     'Data teknis kunjungan, seperti alamat IP, jenis peramban, dan halaman yang dibuka.']],
+        ['title' => 'Penggunaan Data',
+         'text'  => 'Data digunakan untuk:',
+         'items' => ['Menanggapi pertanyaan, keluhan, dan permintaan kerja sama maklon.',
+                     'Meningkatkan kualitas layanan dan pengalaman penggunaan situs.',
+                     'Memenuhi kewajiban hukum yang berlaku.']],
+        ['title' => 'Pembagian Data',
+         'text'  => 'Kami tidak menjual data pribadi Anda. Data hanya dibagikan kepada pihak ketiga yang membantu operasional situs atau bila diwajibkan oleh peraturan perundang-undangan.'],
+        ['title' => 'Cookie',
+         'text'  => 'Situs ini dapat menggunakan cookie untuk menyimpan preferensi seperti pilihan bahasa dan menjaga keamanan formulir. Anda dapat mengatur atau menonaktifkan cookie melalui pengaturan peramban.'],
+        ['title' => 'Keamanan Data',
+         'text'  => 'Kami menerapkan langkah teknis dan organisasi yang wajar untuk melindungi data dari akses tanpa izin, perubahan, atau penyalahgunaan.'],
+        ['title' => 'Hak Anda',
+         'text'  => 'Sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi, Anda berhak meminta akses, perbaikan, atau penghapusan data pribadi Anda dengan menghubungi kami.'],
+        ['title' => 'Perubahan Kebijakan',
+         'text'  => 'Kebijakan ini dapat diperbarui sewaktu-waktu. Versi terbaru selalu ditampilkan di halaman ini beserta tanggal pembaruannya.'],
+        ['title' => 'Hubungi Kami',
+         'text'  => 'Pertanyaan tentang kebijakan ini dapat disampaikan melalui halaman Kontak Kami.'],
+    ],
+];
