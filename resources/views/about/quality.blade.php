@@ -7,7 +7,7 @@
 
 <section class="bg-gray-50 py-16">
     <div class="container mx-auto max-w-4xl px-6">
-        <x-draft-note />
+       
 
         <div class="rounded-2xl bg-white p-8 shadow-sm">
             <p class="text-lg text-gray-700">{{ __('about.quality.statement') }}</p>

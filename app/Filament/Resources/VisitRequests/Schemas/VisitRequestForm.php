@@ -9,11 +9,11 @@ use Filament\Schemas\Schema;
 
 class VisitRequestForm
 {
-    public const TYPES = [
-        'school'     => 'Sekolah',
-        'university' => 'Perguruan Tinggi',
-        'company'    => 'Perusahaan',
-        'other'      => 'Lainnya',
+    public const SOURCES = [
+        'ad'          => 'Iklan',
+        'website'     => 'Website',
+        'referral'    => 'Kerabat/rekan kerja',
+        'mirota_team' => 'Tim Mirota',
     ];
 
     public const STATUSES = [
@@ -27,28 +27,29 @@ class VisitRequestForm
     {
         return $schema->components([
 
-            Section::make('Instansi')
+            Section::make('Kunjungan')
                 ->columns(2)
                 ->columnSpanFull()
                 ->schema([
-                    TextInput::make('institution')
-                        ->label('Nama instansi')
-                        ->columnSpanFull(),
+                    TextInput::make('institution')->label('Instansi')->columnSpanFull(),
 
-                    TextInput::make('institution_type')
-                        ->label('Jenis')
-                        ->formatStateUsing(fn ($state, $record): string => self::TYPES[$record?->institution_type] ?? '-'),
+                    TextInput::make('department')->label('Jurusan'),
 
-                    TextInput::make('visitors')
-                        ->label('Jumlah peserta'),
+                    TextInput::make('province')->label('Provinsi'),
+
+                    Textarea::make('address')->label('Alamat')->rows(3)->columnSpanFull(),
 
                     TextInput::make('preferred_date')
-                        ->label('Rencana tanggal kunjungan')
-                        ->formatStateUsing(fn ($state, $record): string => $record?->preferred_date?->translatedFormat('d F Y') ?? '-'),
+                        ->label('Tanggal & jam kunjungan')
+                        ->formatStateUsing(fn ($state, $record): string => $record?->preferred_date?->translatedFormat('l, d F Y · H:i').' WIB'),
 
                     TextInput::make('status')
                         ->label('Status')
                         ->formatStateUsing(fn ($state, $record): string => self::STATUSES[$record?->status] ?? '-'),
+
+                    TextInput::make('visitors')->label('Jumlah pengunjung'),
+
+                    TextInput::make('companions')->label('Jumlah pendamping'),
                 ]),
 
             Section::make('Penanggung Jawab')
@@ -57,15 +58,22 @@ class VisitRequestForm
                 ->schema([
                     TextInput::make('contact_name')->label('Nama'),
                     TextInput::make('phone')->label('Telepon / WhatsApp'),
-                    TextInput::make('email')->label('Email')->columnSpanFull(),
+                    TextInput::make('email')->label('Email'),
+                    TextInput::make('ktp_number')->label('No. KTP'),
+                    TextInput::make('npwp')->label('NPWP'),
                 ]),
 
-            Section::make('Pesan')
+            Section::make('Sumber Informasi')
+                ->columns(2)
                 ->columnSpanFull()
                 ->schema([
-                    Textarea::make('message')
-                        ->label('Pesan atau kebutuhan khusus')
-                        ->rows(5),
+                    TextInput::make('source')
+                        ->label('Mengetahui dari')
+                        ->formatStateUsing(fn ($state, $record): string => self::SOURCES[$record?->source] ?? '-'),
+
+                    TextInput::make('mirota_team_name')
+                        ->label('Nama Tim Mirota')
+                        ->formatStateUsing(fn ($state): string => $state ?: '-'),
                 ]),
         ]);
     }

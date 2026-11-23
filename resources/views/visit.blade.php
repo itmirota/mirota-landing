@@ -11,7 +11,7 @@
 {{-- Pengantar + yang didapat --}}
 <section class="bg-linear-to-b from-sky/70 to-white py-20">
     <div class="container mx-auto max-w-6xl px-6">
-        <x-draft-note />
+        
 
         <div class="mx-auto max-w-3xl text-center">
             <h2 class="text-3xl font-extrabold text-primary md:text-4xl">{{ __('visit.intro_title') }}</h2>
@@ -189,109 +189,257 @@
 @endif
 
 {{-- Pengajuan --}}
-<section id="form" class="scroll-mt-24 bg-linear-to-b from-white to-sky/60 py-20">
-    <div class="container mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-5">
+@php
+    $box   = 'rounded-lg border border-slate-200 bg-white px-5 shadow-sm transition focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20';
+    $field = 'w-full bg-transparent py-4 text-slate-700 outline-none placeholder:text-slate-500';
+    $inner = 'w-full bg-transparent pb-2.5 pt-0.5 text-slate-700 outline-none';
+    $label = 'block pt-2 text-xs text-slate-500';
+@endphp
 
-        <div class="rounded-3xl bg-white p-8 shadow-lg lg:col-span-3">
-            <h2 class="text-2xl font-extrabold text-primary">{{ __('visit.form_title') }}</h2>
+<section id="form" class="scroll-mt-24 bg-linear-to-b from-white to-sky/60 py-16"
+         x-data="{ terms: false, sending: false, source: @js(old('source', '')) }"
+         x-effect="document.body.classList.toggle('overflow-hidden', terms)"
+         @keydown.escape.window="terms = false">
 
-            @if(session('success'))
-                <div class="mt-4 rounded-lg border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800">{{ session('success') }}</div>
-            @endif
+    <div class="container mx-auto max-w-5xl px-6">
 
-            <form method="POST" action="{{ route('visit.store') }}" class="mt-6 space-y-5">
-                @csrf
+        <button type="button" @click="terms = true"
+                class="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">
+            {{ __('visit.terms_button') }}
+        </button>
 
-                <div class="hidden" aria-hidden="true">
-                    <input type="text" name="website" tabindex="-1" autocomplete="off">
-                </div>
+        <h2 class="mt-6 text-3xl font-extrabold text-primary">{{ __('visit.form_title') }}</h2>
 
-                <div class="grid gap-5 sm:grid-cols-2">
-                    <div class="sm:col-span-2">
-                        <label for="institution" class="text-sm font-semibold text-slate-700">{{ __('visit.institution') }} *</label>
-                        <input id="institution" name="institution" value="{{ old('institution') }}" required class="{{ $input }}">
+        @if(session('success'))
+            <div class="mt-5 rounded-lg border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800">{{ session('success') }}</div>
+        @endif
+
+        <form method="POST" action="{{ route('visit.store') }}" enctype="multipart/form-data"
+              @submit="sending = true" class="mt-6">
+            @csrf
+
+            <div class="hidden" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-2">
+
+                {{-- Kolom kiri --}}
+                <div class="space-y-4">
+                    <div>
+                        <div class="{{ $box }}">
+                            <input name="institution" value="{{ old('institution') }}" required
+                                   placeholder="{{ __('visit.institution') }}" aria-label="{{ __('visit.institution') }}" class="{{ $field }}">
+                        </div>
                         @error('institution') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="institution_type" class="text-sm font-semibold text-slate-700">{{ __('visit.type') }} *</label>
-                        <select id="institution_type" name="institution_type" required class="{{ $input }}">
-                            @foreach(trans('visit.types') as $key => $label)
-                                <option value="{{ $key }}" @selected(old('institution_type') === $key)>{{ $label }}</option>
-                            @endforeach
-                        </select>
-                        @error('institution_type') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div>
-                        <label for="visitors" class="text-sm font-semibold text-slate-700">{{ __('visit.visitors') }} *</label>
-                        <input id="visitors" type="number" name="visitors" min="1" max="500" value="{{ old('visitors') }}" required class="{{ $input }}">
-                        @error('visitors') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div>
-                        <label for="contact_name" class="text-sm font-semibold text-slate-700">{{ __('visit.contact_name') }} *</label>
-                        <input id="contact_name" name="contact_name" value="{{ old('contact_name') }}" required class="{{ $input }}">
+                        <div class="{{ $box }}">
+                            <input name="contact_name" value="{{ old('contact_name') }}" required
+                                   placeholder="{{ __('visit.contact_name') }}" aria-label="{{ __('visit.contact_name') }}" class="{{ $field }}">
+                        </div>
                         @error('contact_name') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="phone" class="text-sm font-semibold text-slate-700">{{ __('visit.phone') }} *</label>
-                        <input id="phone" name="phone" value="{{ old('phone') }}" required class="{{ $input }}">
-                        @error('phone') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <div class="{{ $box }}">
+                            <input name="npwp" value="{{ old('npwp') }}" inputmode="numeric"
+                                   placeholder="{{ __('visit.npwp') }}" aria-label="{{ __('visit.npwp') }}" class="{{ $field }}">
+                        </div>
+                        @error('npwp') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="email" class="text-sm font-semibold text-slate-700">Email *</label>
-                        <input id="email" type="email" name="email" value="{{ old('email') }}" required class="{{ $input }}">
+                        <div class="{{ $box }}">
+                            <input name="ktp_number" value="{{ old('ktp_number') }}" inputmode="numeric" maxlength="16"
+                                   placeholder="{{ __('visit.ktp_number') }}" aria-label="{{ __('visit.ktp_number') }}" class="{{ $field }}">
+                        </div>
+                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.id_hint') }}</p>
+                        @error('ktp_number') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <div class="{{ $box }}">
+                            <input type="email" name="email" value="{{ old('email') }}" required
+                                   placeholder="Email" aria-label="Email" class="{{ $field }}">
+                        </div>
                         @error('email') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
-                        <label for="preferred_date" class="text-sm font-semibold text-slate-700">{{ __('visit.date') }} *</label>
-                        <input id="preferred_date" type="date" name="preferred_date" min="{{ now()->addDay()->toDateString() }}"
-                               value="{{ old('preferred_date') }}" required class="{{ $input }}">
-                        @error('preferred_date') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <div class="{{ $box }}">
+                            <input name="phone" value="{{ old('phone') }}" required inputmode="tel"
+                                   placeholder="{{ __('visit.phone') }}" aria-label="{{ __('visit.phone') }}" class="{{ $field }}">
+                        </div>
+                        @error('phone') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <div class="{{ $box }}">
+                            <label for="source" class="{{ $label }}">{{ __('visit.source_label') }}</label>
+                            <select id="source" name="source" x-model="source" required class="{{ $inner }}">
+                                <option value="">{{ __('visit.source_placeholder') }}</option>
+                                @foreach(trans('visit.sources') as $key => $text)
+                                    <option value="{{ $key }}">{{ $text }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('source') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    {{-- Muncul hanya jika memilih "Tim Mirota" --}}
+                    <div x-show="source === 'mirota_team'" x-cloak x-transition>
+                        <div class="{{ $box }}">
+                            <input name="mirota_team_name" value="{{ old('mirota_team_name') }}"
+                                   :required="source === 'mirota_team'"
+                                   placeholder="{{ __('visit.mirota_team_name') }}" aria-label="{{ __('visit.mirota_team_name') }}" class="{{ $field }}">
+                        </div>
+                        @error('mirota_team_name') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
-                <div>
-                    <label for="message" class="text-sm font-semibold text-slate-700">{{ __('visit.message') }}</label>
-                    <textarea id="message" name="message" rows="4" class="{{ $input }}">{{ old('message') }}</textarea>
-                    @error('message') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
-                </div>
+                {{-- Kolom kanan --}}
+                <div class="space-y-4">
+                    <div>
+                        <div class="{{ $box }}">
+                            <label for="province" class="{{ $label }}">{{ __('visit.province_label') }}</label>
+                            <select id="province" name="province" required class="{{ $inner }}">
+                                <option value="">{{ __('visit.province_placeholder') }}</option>
+                                @foreach(config('provinces') as $province)
+                                    <option value="{{ $province }}" @selected(old('province') === $province)>{{ $province }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('province') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
 
-                <p class="text-xs text-slate-500">
+                    <div>
+                        <div class="{{ $box }}">
+                            <textarea name="address" rows="4" required
+                                      placeholder="{{ __('visit.address') }}" aria-label="{{ __('visit.address') }}"
+                                      class="{{ $field }} resize-y">{{ old('address') }}</textarea>
+                        </div>
+                        @error('address') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <div class="{{ $box }}">
+                            <label for="preferred_date" class="{{ $label }}">{{ __('visit.visit_at') }}</label>
+                            <input id="preferred_date" type="datetime-local" name="preferred_date" step="900"
+                                   min="{{ now()->addDay()->format('Y-m-d\T00:00') }}"
+                                   value="{{ old('preferred_date') }}" required class="{{ $inner }}">
+                        </div>
+                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.visit_at_hint') }}</p>
+                        @error('preferred_date') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <div class="{{ $box }}">
+                            <input name="department" value="{{ old('department') }}"
+                                   placeholder="{{ __('visit.department') }}" aria-label="{{ __('visit.department') }}" class="{{ $field }}">
+                        </div>
+                        @error('department') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="{{ $box }}">
+                                <input type="number" name="visitors" min="1" max="500" value="{{ old('visitors') }}" required
+                                       placeholder="{{ __('visit.visitors') }}" aria-label="{{ __('visit.visitors') }}" class="{{ $field }}">
+                            </div>
+                            @error('visitors') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <div class="{{ $box }}">
+                                <input type="number" name="companions" min="0" max="100" value="{{ old('companions') }}"
+                                    placeholder="{{ __('visit.companions') }}" aria-label="{{ __('visit.companions') }}" class="{{ $field }}">
+                            </div>
+                            @error('companions') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="{{ $box }}">
+                            <label for="ktp_photo" class="{{ $label }}">{{ __('visit.ktp_photo') }}</label>
+                            <input id="ktp_photo" type="file" name="ktp_photo" accept=".jpg,.jpeg,.png"
+                                   class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
+                        </div>
+                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_ktp') }}</p>
+                        @error('ktp_photo') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <div class="{{ $box }}">
+                            <label for="letter" class="{{ $label }}">{{ __('visit.letter') }}</label>
+                            <input id="letter" type="file" name="letter" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required
+                                   class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
+                        </div>
+                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_letter') }}</p>
+                        @error('letter') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+            </div>
+
+            {{-- Persetujuan + kirim --}}
+            <div class="mt-6">
+                <label class="flex items-start gap-3 text-sm text-slate-700">
+                    <input type="checkbox" name="agree" value="1" required @checked(old('agree'))
+                           class="mt-0.5 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary">
+                    <span>
+                        {{ __('visit.agree') }}
+                        <button type="button" @click="terms = true" class="font-semibold text-primary underline">{{ __('visit.terms_button') }}</button>.
+                    </span>
+                </label>
+                @error('agree') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+
+                <p class="mt-3 text-xs text-slate-500">
                     {{ __('contact.privacy_note') }}
                     <a href="{{ route('privacy') }}" class="font-semibold text-primary underline">{{ __('footer.privacy') }}</a>.
                 </p>
 
-                <button type="submit" class="rounded-lg bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-dark">
-                    {{ __('visit.submit') }}
+                <button type="submit" :disabled="sending"
+                        class="mt-5 rounded-lg bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60">
+                    <span x-show="!sending">{{ __('visit.submit') }}</span>
+                    <span x-show="sending" x-cloak>{{ __('visit.sending') }}</span>
                 </button>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
 
-        <div class="space-y-6 lg:col-span-2">
-            <div class="rounded-3xl bg-primary p-8 text-white shadow-lg">
-                <h3 class="text-xl font-bold">{{ __('visit.rules_title') }}</h3>
-                <ul class="mt-4 space-y-3 text-sm text-white/90">
-                    @foreach(trans('visit.rules') as $rule)
-                        <li class="flex gap-3"><span class="text-sky-200">✔</span><span>{{ $rule }}</span></li>
-                    @endforeach
-                </ul>
+    {{-- Jendela Ketentuan Umum --}}
+    <div x-show="terms" x-cloak x-transition.opacity
+         class="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4"
+         @click.self="terms = false" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+
+        <div class="flex max-h-[88vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div class="flex items-center justify-between border-b px-6 py-4">
+                <h3 id="terms-title" class="text-lg font-bold text-primary">{{ __('visit.terms_title') }}</h3>
+                <button type="button" @click="terms = false" aria-label="Close"
+                        class="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
             </div>
 
-            <div class="rounded-3xl bg-white p-8 shadow-lg">
-                <h3 class="text-xl font-bold text-primary">{{ __('visit.steps_title') }}</h3>
-                <ol class="mt-4 space-y-4">
-                    @foreach(trans('visit.steps') as $i => $step)
-                        <li class="flex gap-4">
-                            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">{{ $i + 1 }}</span>
-                            <span class="pt-1 text-sm text-slate-700">{{ $step }}</span>
-                        </li>
+            <div class="overflow-y-auto px-6 py-5 text-sm leading-relaxed text-slate-700">
+                <ol class="list-decimal space-y-3 pl-5">
+                    @foreach(trans('visit.terms') as $term)
+                        <li class="pl-1">{{ $term }}</li>
                     @endforeach
                 </ol>
+
+                <p class="mt-6 rounded-lg bg-sky/60 p-4 font-semibold text-primary-dark">{{ __('visit.terms_note') }}</p>
+
+                <p class="mt-5 font-bold text-accent">
+                    {{ __('visit.terms_pic') }}: {{ __('visit.terms_pic_number') }}
+                </p>
+            </div>
+
+            <div class="border-t px-6 py-4 text-right">
+                <button type="button" @click="terms = false"
+                        class="rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark">
+                    {{ __('visit.terms_close') }}
+                </button>
             </div>
         </div>
     </div>

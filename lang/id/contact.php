@@ -20,5 +20,5 @@ return [
     'success' => 'Terima kasih! Pesan Anda sudah kami terima dan akan segera kami tanggapi.',
 
     'address_title' => 'Alamat Kami',
-    'hours' => '[Contoh] Senin–Jumat, 08.00–16.00 WIB',
+    'hours' => 'Senin–Jumat, 08.00–17.00 WIB',
 ];

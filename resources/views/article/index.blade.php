@@ -12,7 +12,7 @@
 <section class="bg-linear-to-b from-sky/70 to-white py-16">
     <div class="container mx-auto max-w-6xl px-6">
 
-        <x-draft-note />
+     
 
         {{-- Filter kategori --}}
         <div class="flex flex-wrap gap-3">

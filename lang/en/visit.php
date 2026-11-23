@@ -1,46 +1,128 @@
+
 <?php
 
 return [
     'title'    => 'Industrial Visit',
-    'subtitle' => 'See our production process firsthand at the PT Mirota KSM factory.',
+    'subtitle' => 'See the production process firsthand at PT Mirota KSM factory.',
 
-    'intro_title' => 'Learn Directly from Industry',
-    'intro_text'  => 'We welcome schools, universities, and institutions that want to experience our milk and powdered beverage production process first-hand.',
+    'intro_title' => 'Learn Directly from the Industry',
+    'intro_text'  => 'We welcome schools, universities, and institutions interested in learning about the production process of powdered milk and beverages firsthand.',
+
     'benefits' => [
-        ['icon' => '🏭', 'title' => 'Factory Tour',      'text' => '[Sample] See the production areas and workflow with a guide.'],
-        ['icon' => '🎓', 'title' => 'Educational Talks', 'text' => '[Sample] Presentations on quality, food safety, and Mirota’s history.'],
-        ['icon' => '💬', 'title' => 'Q&A Session',       'text' => '[Sample] Discuss directly with our experienced team.'],
-        ['icon' => '🎁', 'title' => 'Souvenirs',         'text' => '[Sample] Mirota products and souvenirs for participants.'],
+        [
+            'icon'  => '🏭',
+            'title' => 'Factory Tour',
+            'text'  => '[Example] Explore the production areas and processes with a tour guide.',
+        ],
+        [
+            'icon'  => '🎓',
+            'title' => 'Educational Materials',
+            'text'  => '[Example] Learn about quality, food safety, and Mirota history.',
+        ],
+        [
+            'icon'  => '💬',
+            'title' => 'Q&A Session',
+            'text'  => '[Example] Have discussions directly with our experienced team.',
+        ],
+        [
+            'icon'  => '🎁',
+            'title' => 'Souvenirs',
+            'text'  => '[Example] Mirota products and souvenirs for participants.',
+        ],
     ],
 
     'gallery_title'      => 'Visit Gallery',
-    'video_title'        => 'Visit Videos',
+    'video_title'        => 'Visit Video',
     'institutions_title' => 'Institutions That Have Visited',
 
-    'form_title'   => 'Request a Visit',
-    'institution'  => 'Institution name',
-    'type'         => 'Institution type',
-    'types'        => ['school' => 'School', 'university' => 'University', 'company' => 'Company', 'other' => 'Other'],
-    'visitors'     => 'Number of participants',
-    'contact_name' => 'Contact person',
-    'phone'        => 'Phone / WhatsApp number',
-    'date'         => 'Preferred visit date',
-    'message'      => 'Message or special requirements (optional)',
-    'submit'       => 'Submit Request',
-    'success'      => 'Thank you! We have received your visit request. Our team will contact you to confirm the schedule.',
+    // ── Application form ──
 
-    'rules_title' => 'Visit Requirements',
-    'rules' => [
-        '[Sample] Requests must be submitted at least 14 days before the visit date.',
-        '[Sample] Participants per visit: 10–50 people.',
-        '[Sample] Visits are held on weekdays, 09:00–12:00 WIB (UTC+7).',
-        '[Sample] Participants must follow factory safety and hygiene rules.',
+    'form_title'   => 'Industrial Visit Form',
+    'terms_button' => 'Terms & Conditions for Industrial Visits',
+
+    'institution'  => 'Institution',
+    'contact_name' => 'Full Name of Person in Charge',
+    'npwp'         => 'NPWP (Tax ID)',
+    'ktp_number'   => 'KTP (ID Card) No.',
+    'id_hint'      => 'Fill in at least one: KTP number or NPWP.',
+    'phone' => 'Phone / WhatsApp Number',
+
+    'source_label'       => 'How did you hear about the visit?',
+    'source_placeholder' => '-select source-',
+
+    'sources' => [
+        'ad'          => 'Advertisement',
+        'website'     => 'Website',
+        'referral'    => 'Relative/colleague',
+        'mirota_team' => 'Mirota Team',
     ],
 
-    'steps_title' => 'Request Process',
-    'steps' => [
-        '[Sample] Fill in the visit request form.',
-        '[Sample] Our team contacts you to confirm the schedule.',
-        '[Sample] The visit takes place on the agreed date.',
+    'mirota_team_name'     => 'Mirota Team Member Name',
+    'province_label'       => 'Province',
+    'province_placeholder' => '-select province-',
+
+    'address'       => 'Address',
+    'visit_at'      => 'Visit Date',
+    'visit_at_hint' => 'Monday–Friday. Session 1: 09:00–12:00 WIB, session 2: 13:00–15:00 WIB.',
+
+    'department' => 'Department / Major',
+    'visitors'   => 'Number of Visitors',
+    'companions' => 'Number of Companions',
+
+    'ktp_photo' => 'KTP (ID Card) Photo',
+    'letter'    => 'Visit request letter',
+
+    'file_hint_ktp'    => 'JPG/PNG, max. 2 MB.',
+    'file_hint_letter' => 'PDF/DOC/DOCX/JPG/PNG, max. 3 MB.',
+
+    'agree'    => 'I have read and agree to the',
+    'submit'   => 'Submit Request',
+    'sending'  => 'Sending...',
+
+    'success' => 'Thank you! We have received your visit request. Our team will contact you to confirm the schedule.',
+
+    'err_weekday' => 'Visits are only available Monday to Friday.',
+    'err_session' => 'Choose a time within session 1 (09:00–12:00 WIB) or session 2 (13:00–15:00 WIB).',
+
+    // ── Terms & Conditions  ──
+
+    'terms_title' => 'Terms & Conditions for Industrial Visits',
+
+    'terms' => [
+        'Visits are available Monday to Friday, between 09:00–12:00 WIB (session 1) and 13:00–15:00 WIB (session 2).',
+
+        'Each visiting group is limited to 100 participants per session (more than 100 participants are split into 2 groups).',
+
+        'An industrial visit package must be purchased for a minimum of 30 participants at Rp 30,000 per participant. If there are fewer than 30 participants, you agree to pay in accordance with the requirement.',
+
+        'Any decrease or increase in the number of participants can be communicated to the visit PIC 5 days before settlement of payment.',
+
+        'Payment must be made no later than D-5 before the visit date, to: Account No. 037-3700603 in the name of MIROTA KSM PT (BANK BCA) or',
+
+        'Payment must be made no later than D-5 before the visit. If payment has not been made, the visit is considered CANCELLED and the company reserves the right not to accept the visit.',
+
+        'A 10% visit cashback will be given by PT Mirota KSM after payment is settled to the account of the agency, school, or university, stating the KTP (ID card) or NPWP (tax ID) number.',
+
+        'Visit procedure: the school\'s letter and the completed Visit Institution Data form must be sent to the company at most 1 month before the visit, to reserve the visit schedule through the website link.',
+
+        'Special requests regarding the technical arrangements of the visit by the school/university/institution can be communicated to the company at least D-1 before the visit.',
+
+        'Participants with a severe cough or flu MUST wear a mask.',
+
+        'Participants MUST NOT take photos or videos while touring the factory area.',
+
+        'Participants MUST NOT bring backpacks when entering/touring the factory area.',
+
+        'Buses must be parked neatly in the designated parking area (east of the factory/across the road).',
+
+        'Closed footwear covering the heel is REQUIRED: formal sneakers, loafers, slip-ons, or flats. NO FLIP-FLOPS.',
+
+        'Neat attire is REQUIRED: a collared shirt or school/university jacket on top, and long trousers or a skirt. NO SHORTS OR DISTRESSED-STYLE PANTS.',
     ],
+
+    'terms_note' => 'All participants MUST KEEP THE FACTORY AREA AND BUS PARKING AREA CLEAN by DISPOSING OF TRASH IN THE BINS LOCATED IN THE BUS PARKING AREA.',
+
+    'terms_pic'        => 'VISIT PIC NUMBER',
+    'terms_pic_number' => '088983070561',
+    'terms_close'      => 'I Understand',
 ];

@@ -3,11 +3,9 @@
 return [
     'name'    => 'PT Mirota KSM',
     
-    'address' => 'Jl. Anggrek No.141 Sambelegi Kidul, Maguwoharjo, Sambelegi Kidul, Kabupaten, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281
-    ',
+    'address' => 'Jl. Anggrek No.141 Sambelegi Kidul, Maguwoharjo, Sambelegi Kidul, Kabupaten, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281, Indonesia',
 
     'social' => [
-        // Ganti dengan akun Instagram resmi Mirota, mis. 'https://www.instagram.com/namaakun/'
         'instagram' => 'https://www.instagram.com/mirotaksm',
         'tiktok'    => 'https://www.tiktok.com/@lactonaofficial',
     ],

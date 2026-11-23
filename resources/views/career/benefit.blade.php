@@ -7,7 +7,7 @@
 
 <section class="bg-linear-to-b from-sky/70 to-white py-20">
     <div class="container mx-auto max-w-6xl px-6">
-        <x-draft-note />
+        
 
         <div class="mx-auto max-w-3xl text-center">
             <h2 class="text-3xl font-extrabold text-primary md:text-4xl">{{ __('career.benefit.intro_title') }}</h2>

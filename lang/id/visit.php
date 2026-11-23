@@ -1,3 +1,4 @@
+
 <?php
 
 return [
@@ -6,41 +7,122 @@ return [
 
     'intro_title' => 'Belajar Langsung dari Industri',
     'intro_text'  => 'Kami membuka pintu bagi sekolah, perguruan tinggi, dan instansi yang ingin mengenal proses produksi susu dan minuman serbuk secara langsung.',
+
     'benefits' => [
-        ['icon' => '🏭', 'title' => 'Tur Pabrik',        'text' => '[Contoh] Melihat area dan alur produksi dengan didampingi pemandu.'],
-        ['icon' => '🎓', 'title' => 'Materi Edukasi',    'text' => '[Contoh] Pemaparan tentang mutu, keamanan pangan, dan sejarah Mirota.'],
-        ['icon' => '💬', 'title' => 'Sesi Tanya Jawab',  'text' => '[Contoh] Berdiskusi langsung dengan tim yang berpengalaman.'],
-        ['icon' => '🎁', 'title' => 'Cenderamata',       'text' => '[Contoh] Produk dan cinderamata dari Mirota untuk peserta.'],
+        [
+            'icon'  => '🏭',
+            'title' => 'Tur Pabrik',
+            'text'  => '[Contoh] Melihat area dan alur produksi dengan didampingi pemandu.',
+        ],
+        [
+            'icon'  => '🎓',
+            'title' => 'Materi Edukasi',
+            'text'  => '[Contoh] Pemaparan tentang mutu, keamanan pangan, dan sejarah Mirota.',
+        ],
+        [
+            'icon'  => '💬',
+            'title' => 'Sesi Tanya Jawab',
+            'text'  => '[Contoh] Berdiskusi langsung dengan tim yang berpengalaman.',
+        ],
+        [
+            'icon'  => '🎁',
+            'title' => 'Cenderamata',
+            'text'  => '[Contoh] Produk dan cinderamata dari Mirota untuk peserta.',
+        ],
     ],
 
     'gallery_title'      => 'Galeri Kunjungan',
     'video_title'        => 'Video Kunjungan',
     'institutions_title' => 'Instansi yang Pernah Berkunjung',
 
-    'form_title'   => 'Ajukan Kunjungan',
-    'institution'  => 'Nama instansi',
-    'type'         => 'Jenis instansi',
-    'types'        => ['school' => 'Sekolah', 'university' => 'Perguruan Tinggi', 'company' => 'Perusahaan', 'other' => 'Lainnya'],
-    'visitors'     => 'Jumlah peserta',
-    'contact_name' => 'Nama penanggung jawab',
-    'phone'        => 'Nomor telepon / WhatsApp',
-    'date'         => 'Rencana tanggal kunjungan',
-    'message'      => 'Pesan atau kebutuhan khusus (opsional)',
-    'submit'       => 'Kirim Pengajuan',
-    'success'      => 'Terima kasih! Pengajuan kunjungan Anda sudah kami terima. Tim kami akan menghubungi Anda untuk konfirmasi jadwal.',
+    // ── Formulir pengajuan ──
 
-    'rules_title' => 'Ketentuan Kunjungan',
-    'rules' => [
-        '[Contoh] Pengajuan dilakukan minimal 14 hari sebelum tanggal kunjungan.',
-        '[Contoh] Jumlah peserta per kunjungan: 10–50 orang.',
-        '[Contoh] Kunjungan dilaksanakan pada hari kerja, pukul 09.00–12.00 WIB.',
-        '[Contoh] Peserta wajib mengikuti aturan keselamatan dan kebersihan pabrik.',
+    'form_title'   => 'Formulir Kunjungan Industri',
+    'terms_button' => 'Syarat & Ketentuan',
+
+    'institution'  => 'Instansi',
+    'contact_name' => 'Nama Lengkap Penanggung Jawab',
+    'npwp'         => 'NPWP',
+    'ktp_number'   => 'No. KTP',
+    'id_hint'      => 'Isi minimal salah satu: No. KTP atau NPWP.',
+    'phone' => 'Nomor telepon / WhatsApp',
+
+    'source_label'       => 'Mengetahui Informasi Kunjungan dari?',
+    'source_placeholder' => '-pilih Sumber Info-',
+
+    'sources' => [
+        'ad'          => 'Iklan',
+        'website'     => 'Website',
+        'referral'    => 'Kerabat/rekan kerja',
+        'mirota_team' => 'Tim Mirota',
     ],
 
-    'steps_title' => 'Alur Pengajuan',
-    'steps' => [
-        '[Contoh] Isi formulir pengajuan kunjungan.',
-        '[Contoh] Tim kami menghubungi untuk konfirmasi jadwal.',
-        '[Contoh] Kunjungan dilaksanakan sesuai jadwal yang disepakati.',
+    'mirota_team_name'     => 'Nama Tim Mirota',
+    'province_label'       => 'Provinsi',
+    'province_placeholder' => '-pilih provinsi-',
+
+    'address'       => 'Alamat',
+    'visit_at'      => 'Tanggal Kunjungan',
+    'visit_at_hint' => 'Senin–Jumat. Sesi 1: 09.00–12.00 WIB, sesi 2: 13.00–15.00 WIB.',
+
+    'department' => 'Jurusan',
+    'visitors'   => 'Jumlah Pengunjung',
+    'companions' => 'Jumlah Pendamping',
+
+    'ktp_photo' => 'Foto KTP',
+    'letter'    => 'Surat permohonan kunjungan',
+
+    'file_hint_ktp'    => 'JPG/PNG, maks. 2 MB.',
+    'file_hint_letter' => 'PDF/DOC/DOCX/JPG/PNG, maks. 3 MB.',
+
+    'agree'    => 'Saya telah membaca dan menyetujui',
+    'submit'   => 'Kirim Pengajuan',
+    'sending'  => 'Mengirim...',
+
+    'success' => 'Terima kasih! Pengajuan kunjungan Anda sudah kami terima. Tim kami akan menghubungi Anda untuk konfirmasi jadwal.',
+
+    'err_weekday' => 'Kunjungan hanya dapat dilakukan pada hari Senin–Jumat.',
+    'err_session' => 'Pilih jam pada sesi 1 (09.00–12.00 WIB) atau sesi 2 (13.00–15.00 WIB).',
+
+    // ── Syarat & Ketentuan ──
+
+    'terms_title' => 'Syarat & Ketentuan Kunjungan Industri',
+
+    'terms' => [
+        'Kunjungan dapat dilakukan pada hari Senin-Jumat, antara pukul 09:00-12:00 WIB (sesi 1) dan 13:00 – 15:00 WIB (sesi 2).',
+
+        'Dalam satu kelompok kunjungan maksimal 100 orang peserta per-sesi (diatas 100 orang dibagi 2 kelompok).',
+
+        'Wajib melakukan pembelian paket kunjungan industri dengan minimal peserta 30 orang dan membayar seharga Rp 30.000/peserta, jika kurang dari 30 peserta, bersedia membayar sesuai persyaratan.',
+
+        'Jika ada pengurangan atau penambahan jumlah peserta bisa disampaikan kepada PIC kunjungan 5 hari sebelum dilakukan pelunasan.',
+
+        'Pembayaran dilakukan maksimal H-5 dari tanggal kunjungan, di bayarkan ke : No Rekening : 037- 3700603 an MIROTA KSM PT (BANK BCA) atau',
+
+        'Wajib melakukan pembayaran maksimal H-5 kunjungan, jika belum melakukan pembayaran dianggap BATAL kunjungan dan perusahaan berhak untuk tidak menerima kunjungan.',
+
+        'Cashback kunjungan sebesar 10% akan diberikan oleh PT. Mirota KSM setelah pelunasan ke rekening agensi atau sekolah atau kampus dengan mencantumkan nomor ktp atau npwp.',
+
+        'Alur penerimaan kunjungan : pengajuan surat dari sekolah dan pengisian Data Instansi Kunjungan dikirimkan ke perusahaan maksimal 1 bulan sebelum kunjungan untuk keep jadwal kunjungan melalui link website.',
+
+        'Jika ada permintaan khusus terkait teknis acara kunjungan sekolah/kampus/instansi dapat menginfokan kepada perusahaan minimal H-1 kunjungan.',
+
+        'Jika ada peserta yang sakit batuk flu berat WAJIB memakai masker.',
+
+        'Peserta TIDAK BOLEH mengambil gambar baik foto atau video saat berkeliling di area pabrik.',
+
+        'Peserta TIDAK BOLEH membawa tas ransel ketika masuk/berkeliling ke area pabrik.',
+
+        'Bus diparkir dengan rapi diparkiran yg disediakan (di timur pabrik/seberang jalan).',
+
+        'Wajib memakai alas kaki yaitu sepatu formal model kets, pantofel, slip on atau flatshoes yang menutup tumit dan BUKAN SANDAL JEPIT.',
+
+        'Wajib berpakaian rapi seperti atasan kemeja atau mengenakan almamater, bawahan memakai celana panjang atau rok, BUKAN CELANA PENDEK ATAU CELANA MODEL DESTROYED.',
     ],
+
+    'terms_note' => 'Seluruh peserta WAJIB MENJAGA KEBERSIHAN area pabrik dan parkiran bus dengan cara MEMBUANG SAMPAH DI BAK SAMPAH YANG ADA DI AREA PARKIR BUS.',
+
+    'terms_pic'        => 'NOMOR PIC KUNJUNGAN',
+    'terms_pic_number' => '088983070561',
+    'terms_close'      => 'Saya Mengerti',
 ];

@@ -7,7 +7,7 @@
 
 <section class="bg-gray-50 py-16">
     <div class="container mx-auto max-w-5xl px-6">
-        <x-draft-note />
+        
 
         <div class="grid gap-6 md:grid-cols-2">
             <div class="rounded-2xl bg-primary p-8 text-white">

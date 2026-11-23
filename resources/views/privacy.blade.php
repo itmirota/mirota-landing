@@ -18,7 +18,7 @@
         </aside>
 
         <div class="lg:col-span-3">
-            <x-draft-note />
+            
 
             @foreach(trans('privacy.sections') as $i => $s)
                 <article id="s{{ $i + 1 }}" class="mb-10 scroll-mt-28">

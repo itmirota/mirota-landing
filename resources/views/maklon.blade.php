@@ -1,73 +1,80 @@
+@php
+    $waNumber = preg_replace('/\D/', '', (string) config('company.maklon.whatsapp'));
+    if (str_starts_with($waNumber, '0')) {
+        $waNumber = '62'.substr($waNumber, 1);   // 08xx menjadi 628xx
+    }
+    $waLink = $waNumber ? 'https://wa.me/'.$waNumber.'?text='.rawurlencode(__('maklon.wa_message')) : null;
+@endphp
+
 @extends('layouts.app')
 @section('title', __('maklon.title').' | PT Mirota KSM')
 
 @section('content')
 <x-page-header :title="__('maklon.title')" :subtitle="__('maklon.subtitle')" :label="__('nav.maklon')" />
 
-{{-- Pengantar + keunggulan --}}
-<section class="bg-linear-to-b from-sky/70 to-white py-20">
+{{-- Mengapa Memilih Kami (gambar dari tim maklon) --}}
+@php $why = 'images/maklon/mengapa-memilih-kami.png'; @endphp
+@if(file_exists(public_path($why)))
+<section class="bg-linear-to-b from-sky/70 to-white pt-16 pb-4">
     <div class="container mx-auto max-w-6xl px-6">
-        <x-draft-note />
+        <h2 class="text-center text-3xl font-extrabold text-primary md:text-4xl">{{ __('maklon.why_title') }}</h2>
 
-        <div class="mx-auto max-w-3xl text-center">
-            <h2 class="text-3xl font-extrabold text-primary md:text-4xl">{{ __('maklon.intro_title') }}</h2>
-            <p class="mt-4 text-lg text-slate-700">{{ __('maklon.intro_text') }}</p>
-
-            <div class="mt-6 flex flex-wrap justify-center gap-3">
-                @foreach(trans('maklon.products') as $item)
-                    <span class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary shadow">{{ $item }}</span>
-                @endforeach
-            </div>
+        <div class="mt-8 overflow-x-auto">
+            <img src="{{ asset($why) }}" alt="{{ __('maklon.why_alt') }}" loading="lazy"
+                 class="mx-auto h-auto w-full min-w-[720px]">
         </div>
+        <p class="mt-2 text-center text-xs text-slate-400 md:hidden">{{ __('maklon.why_swipe') }}</p>
 
-        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach(trans('maklon.advantages') as $adv)
-                <div class="rounded-2xl bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-xl">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-2xl">{{ $adv['icon'] }}</div>
-                    <h3 class="mt-4 text-lg font-bold text-primary-dark">{{ $adv['title'] }}</h3>
-                    <p class="mt-2 text-sm text-slate-600">{{ $adv['text'] }}</p>
-                </div>
+        {{-- Teks untuk pembaca layar dan mesin pencari --}}
+        <dl class="sr-only">
+            @foreach(trans('maklon.why_items') as $item)
+                <dt>{{ $item['title'] }}</dt>
+                <dd>{{ $item['text'] }}</dd>
             @endforeach
-        </div>
+        </dl>
     </div>
 </section>
+@endif
 
-{{-- Alur kerja sama --}}
-<section class="bg-white py-20">
+{{-- Alur Maklon (gambar dari tim maklon) --}}
+@php $flow = 'images/maklon/alur-maklon.png'; @endphp
+@if(file_exists(public_path($flow)))
+<section class="bg-white pt-16 pb-6">
     <div class="container mx-auto max-w-6xl px-6">
         <h2 class="text-center text-3xl font-extrabold text-primary md:text-4xl">{{ __('maklon.steps_title') }}</h2>
 
-        <div class="relative mt-14 grid gap-8 md:grid-cols-5">
-            <div class="absolute left-0 right-0 top-7 hidden h-0.5 bg-primary/20 md:block"></div>
-
-            @foreach(trans('maklon.steps') as $i => $step)
-                <div class="relative text-center">
-                    <div class="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent text-xl font-extrabold text-white shadow-lg ring-4 ring-white">
-                        {{ $i + 1 }}
-                    </div>
-                    <h3 class="mt-4 font-bold text-primary-dark">{{ $step['title'] }}</h3>
-                    <p class="mt-2 text-sm text-slate-600">{{ $step['text'] }}</p>
-                </div>
-            @endforeach
+        <div class="mt-8 overflow-x-auto">
+            <img src="{{ asset($flow) }}" alt="{{ __('maklon.flow_alt') }}" loading="lazy"
+                 class="mx-auto h-auto w-full min-w-[720px]">
         </div>
+        <p class="mt-2 text-center text-xs text-slate-400 md:hidden">{{ __('maklon.flow_swipe') }}</p>
+
+        {{-- Teks untuk pembaca layar dan mesin pencari --}}
+        <ol class="sr-only">
+            @foreach(trans('maklon.steps') as $step)
+                <li>{{ $step }}</li>
+            @endforeach
+        </ol>
     </div>
 </section>
+@endif
 
-{{-- Mitra --}}
+{{-- Klien / mitra --}}
 @if($partners->isNotEmpty())
-<section class="bg-sky/50 py-16">
+<section class="bg-white py-14">
     <div class="container mx-auto max-w-6xl px-6">
-        <h2 class="text-center text-2xl font-extrabold text-primary md:text-3xl">{{ __('maklon.partners_title') }}</h2>
+        <h2 class="text-center text-3xl font-extrabold text-primary md:text-4xl">{{ __('maklon.partners_title') }}</h2>
 
-        <div class="mt-10 grid grid-cols-2 gap-5 md:grid-cols-4">
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
             @foreach($partners as $partner)
                 @php $tag = $partner->website ? 'a' : 'div'; @endphp
-                <{{ $tag }} @if($partner->website) href="{{ $partner->website }}" target="_blank" rel="noopener" @endif
-                    class="flex h-28 items-center justify-center rounded-2xl bg-white p-4 text-center shadow-md transition hover:shadow-xl">
+                <{{ $tag }} @if($partner->website) href="{{ $partner->website }}" target="_blank" rel="noopener noreferrer" @endif
+                    class="flex h-20 w-36 items-center justify-center transition hover:opacity-75">
                     @if($partner->logo)
-                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" class="max-h-full max-w-full object-contain">
+                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" loading="lazy"
+                             class="max-h-full max-w-full object-contain">
                     @else
-                        <span class="text-sm font-bold text-primary">{{ $partner->name }}</span>
+                        <span class="text-center text-sm font-bold text-primary">{{ $partner->name }}</span>
                     @endif
                 </{{ $tag }}>
             @endforeach
@@ -131,14 +138,26 @@
 @endif
 
 {{-- Ajakan --}}
-<section class="bg-primary py-16 text-white">
+<section class="bg-primary py-14 text-white">
     <div class="container mx-auto max-w-3xl px-6 text-center">
         <h2 class="text-3xl font-extrabold">{{ __('maklon.cta_title') }}</h2>
         <p class="mt-3 text-white/85">{{ __('maklon.cta_text') }}</p>
-        <a href="{{ route('contact', ['type' => 'maklon']) }}"
-           class="mt-8 inline-block rounded-lg bg-accent px-8 py-3 font-semibold text-white transition hover:brightness-110">
-            {{ __('maklon.cta_button') }}
-        </a>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+            @if($waLink)
+                <a href="{{ $waLink }}" target="_blank" rel="noopener noreferrer"
+                   class="rounded-lg bg-[#25D366] px-8 py-3 font-semibold text-white transition hover:brightness-95">
+                    {{ __('maklon.cta_whatsapp') }}
+                </a>
+            @endif
+            <a href="{{ route('contact', ['type' => 'maklon']) }}"
+               class="rounded-lg border border-white px-8 py-3 font-semibold transition hover:bg-white hover:text-primary-dark">
+                {{ __('maklon.cta_form') }}
+            </a>
+        </div>
     </div>
 </section>
+@if($waLink)
+    <x-whatsapp-float :href="$waLink" />
+@endif
 @endsection
