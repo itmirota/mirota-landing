@@ -96,11 +96,20 @@ class MaklonVideoResource extends Resource
                 Action::make('tonton')
                     ->label('Tonton')
                     ->icon(Heroicon::OutlinedPlay)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Tonton Video')
                     ->url(fn (MaklonVideo $record): string => 'https://www.youtube.com/watch?v='.$record->youtube_id)
                     ->openUrlInNewTab(),
 
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Video'),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Video'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([DeleteBulkAction::make()]),

@@ -23,13 +23,15 @@ class ProductResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
 
+    protected static ?string $navigationLabel = 'Data Produk';
+
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $modelLabel = 'Produk';
+    protected static ?string $modelLabel = 'Data Produk';
 
-    protected static ?string $pluralModelLabel = 'Produk';
+    protected static ?string $pluralModelLabel = 'Data Produk';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 11;
 
     protected static function feature(): string
     {

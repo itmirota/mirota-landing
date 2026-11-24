@@ -37,13 +37,15 @@ class VisitInstitutionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Kunjungan Industri';
 
+    protected static ?string $navigationLabel = 'Instansi Pengunjung';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = 'Instansi';
 
     protected static ?string $pluralModelLabel = 'Instansi Pengunjung';
 
-    protected static ?int $navigationSort = 61;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
@@ -79,8 +81,14 @@ class VisitInstitutionResource extends Resource
             ->reorderable('sort_order')
             ->defaultSort('sort_order')
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Instansi'),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Instansi'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([DeleteBulkAction::make()]),

@@ -77,13 +77,23 @@ class ArticlesTable
                 Action::make('lihat')
                     ->label('Lihat')
                     ->icon(Heroicon::OutlinedEye)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Lihat Artikel')
                     ->url(fn (Article $record): string => url('/id/artikel/'.$record->slug))
                     ->openUrlInNewTab()
                     ->visible(fn (Article $record): bool => $record->is_published
                         && (! $record->published_at || $record->published_at->isPast())),
 
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Artikel'),
+
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Artikel'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

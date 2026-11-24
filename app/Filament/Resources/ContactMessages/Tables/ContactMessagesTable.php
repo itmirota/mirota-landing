@@ -74,23 +74,35 @@ class ContactMessagesTable
             ->recordActions([
                 ViewAction::make()
                     ->label('Baca')
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Baca Pesan')
                     ->modalHeading(fn (ContactMessage $record): string => 'Pesan dari '.$record->name)
                     ->modalDescription(fn (ContactMessage $record): string => 'Diterima '.$record->created_at->translatedFormat('d F Y, H:i')),
 
                 Action::make('balas')
                     ->label('Balas')
                     ->icon(Heroicon::OutlinedPaperAirplane)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Balas Email')
                     ->url(fn (ContactMessage $record): string => 'mailto:'.$record->email.'?subject='.rawurlencode('Re: Pesan Anda kepada PT Mirota KSM'))
                     ->openUrlInNewTab(),
 
                 Action::make('toggleRead')
                     ->label(fn (ContactMessage $record): string => $record->read_at ? 'Tandai belum dibaca' : 'Tandai sudah dibaca')
                     ->icon(Heroicon::OutlinedCheckCircle)
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip(fn (ContactMessage $record): string => $record->read_at ? 'Tandai belum dibaca' : 'Tandai sudah dibaca')
                     ->action(fn (ContactMessage $record) => $record->update([
                         'read_at' => $record->read_at ? null : now(),
                     ])),
 
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Pesan'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

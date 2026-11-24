@@ -79,15 +79,23 @@ class JobVacanciesTable
                 Action::make('lihat')
                     ->label('Lihat')
                     ->icon(Heroicon::OutlinedEye)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Lihat Lowongan')
                     ->url(fn (JobVacancy $record): string => url('/id/karir/lowongan/'.$record->slug))
-                    ->openUrlInNewTab()
-                    ->visible(fn (JobVacancy $record): bool => JobVacancy::open()->whereKey($record->getKey())->exists()),
+                    ->openUrlInNewTab(),
 
-                EditAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Data'),
 
                 // Lowongan yang sudah punya pelamar tidak boleh dihapus (data pelamar ikut hilang).
                 // Cukup matikan "Tayangkan" untuk menutupnya.
                 DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Data')
                     ->visible(fn (JobVacancy $record): bool => ! $record->applications()->exists()),
             ]);
     }

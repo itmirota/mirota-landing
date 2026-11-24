@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\Products\Tables;
 
+use App\Models\Product;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -45,8 +48,24 @@ class ProductsTable
                 TernaryFilter::make('is_featured')->label('Produk unggulan'),
             ])
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                Action::make('lihat')
+                    ->label('Lihat')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Lihat Produk')
+                    ->url(fn (Product $record): string => url('/id/produk/'.$record->slug))
+                    ->openUrlInNewTab(),
+
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Produk'),
+
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Produk'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
