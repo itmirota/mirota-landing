@@ -38,13 +38,15 @@ class VisitVideoResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Kunjungan Industri';
 
+    protected static ?string $navigationLabel = 'Video Kunjungan';
+
     protected static ?string $recordTitleAttribute = 'title';
 
     protected static ?string $modelLabel = 'Video Kunjungan';
 
     protected static ?string $pluralModelLabel = 'Video Kunjungan';
 
-    protected static ?int $navigationSort = 62;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Schema $schema): Schema
     {
@@ -96,11 +98,20 @@ class VisitVideoResource extends Resource
                 Action::make('tonton')
                     ->label('Tonton')
                     ->icon(Heroicon::OutlinedPlay)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Tonton di YouTube')
                     ->url(fn (VisitVideo $record): string => 'https://www.youtube.com/watch?v='.$record->youtube_id)
                     ->openUrlInNewTab(),
 
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Video'),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Video'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([DeleteBulkAction::make()]),

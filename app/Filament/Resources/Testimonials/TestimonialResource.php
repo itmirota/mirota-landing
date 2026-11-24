@@ -99,8 +99,14 @@ class TestimonialResource extends Resource
             ->reorderable('sort_order')
             ->defaultSort('sort_order')
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Testimoni'),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Testimoni'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([DeleteBulkAction::make()]),

@@ -43,7 +43,8 @@ class VisitRequestsTable
                 TextColumn::make('preferred_date')
                     ->label('Rencana kunjungan')
                     ->dateTime('d M Y, H:i')
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(query: fn ($query, string $search) => \App\Support\DateSearch::apply($query, 'preferred_date', $search)),
 
                 TextColumn::make('contact_name')
                     ->label('Penanggung jawab')
@@ -83,30 +84,45 @@ class VisitRequestsTable
             ->recordActions([
                 ViewAction::make()
                     ->label('Detail')
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Lihat Detail')
                     ->modalHeading(fn (VisitRequest $record): string => $record->institution)
                     ->modalDescription(fn (VisitRequest $record): string => 'Diajukan '.$record->created_at->translatedFormat('d F Y, H:i')),
 
                 Action::make('surat')
                     ->label('Unduh surat')
                     ->icon(Heroicon::OutlinedDocumentArrowDown)
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Unduh Surat Pengajuan')
                     ->visible(fn (VisitRequest $record): bool => filled($record->letter_path))
                     ->action(fn (VisitRequest $record) => self::download($record, 'letter_path', 'surat')),
 
                 Action::make('ktp')
                     ->label('Unduh foto KTP')
                     ->icon(Heroicon::OutlinedIdentification)
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Unduh Foto KTP')
                     ->visible(fn (VisitRequest $record): bool => filled($record->ktp_photo_path))
                     ->action(fn (VisitRequest $record) => self::download($record, 'ktp_photo_path', 'ktp')),
 
                 Action::make('balas')
                     ->label('Balas')
                     ->icon(Heroicon::OutlinedPaperAirplane)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Balas Email')
                     ->url(fn (VisitRequest $record): string => 'https://mail.google.com/mail/?view=cm&fs=1'
                         .'&to='.rawurlencode($record->email)
                         .'&su='.rawurlencode('Pengajuan Kunjungan Industri PT Mirota KSM'))
                     ->openUrlInNewTab(),
 
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Kunjungan'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

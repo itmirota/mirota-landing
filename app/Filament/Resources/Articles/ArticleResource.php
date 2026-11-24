@@ -28,13 +28,15 @@ class ArticleResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
 
+    protected static ?string $navigationLabel = 'Data Artikel';
+
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?string $modelLabel = 'Artikel';
+    protected static ?string $modelLabel = 'Data Artikel';
 
-    protected static ?string $pluralModelLabel = 'Artikel';
+    protected static ?string $pluralModelLabel = 'Data Artikel';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 10;
 
     public static function form(Schema $schema): Schema
     {

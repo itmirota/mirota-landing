@@ -29,13 +29,15 @@ class VisitRequestResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Kunjungan Industri';
 
+    protected static ?string $navigationLabel = 'Data Kunjungan';
+
     protected static ?string $recordTitleAttribute = 'institution';
 
-    protected static ?string $modelLabel = 'Pengajuan Kunjungan';
+    protected static ?string $modelLabel = 'Data Kunjungan';
 
-    protected static ?string $pluralModelLabel = 'Pengajuan Kunjungan';
+    protected static ?string $pluralModelLabel = 'Data Kunjungan';
 
-    protected static ?int $navigationSort = 31;
+    protected static ?int $navigationSort = 1;
 
     // Pengajuan hanya masuk dari formulir publik.
     public static function canCreate(): bool

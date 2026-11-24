@@ -27,13 +27,17 @@ class JobApplicationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Karir';
+
+    protected static ?string $navigationLabel = 'Data Pelamar';
+
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $modelLabel = 'Lamaran';
+    protected static ?string $modelLabel = 'Data Pelamar';
 
-    protected static ?string $pluralModelLabel = 'Lamaran Kerja';
+    protected static ?string $pluralModelLabel = 'Data Pelamar';
 
-    protected static ?int $navigationSort = 42;
+    protected static ?int $navigationSort = 2;
 
     public static function canCreate(): bool
     {

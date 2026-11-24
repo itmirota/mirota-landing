@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users\Tables;
 use App\Models\User;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -57,9 +58,20 @@ class UsersTable
             ])
             ->defaultSort('name')
             ->recordActions([
-                EditAction::make(),
+                ViewAction::make()
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Detail Pengguna'),
+
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Pengguna'),
 
                 DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Pengguna')
                     ->visible(fn (User $record): bool => ! $record->isSuperadmin()),
             ]);
     }

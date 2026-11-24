@@ -38,13 +38,15 @@ class VisitPhotoResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Kunjungan Industri';
 
+    protected static ?string $navigationLabel = 'Galeri Foto';
+
     protected static ?string $recordTitleAttribute = 'caption';
 
     protected static ?string $modelLabel = 'Foto Kunjungan';
 
     protected static ?string $pluralModelLabel = 'Galeri Kunjungan';
 
-    protected static ?int $navigationSort = 60;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {
@@ -88,8 +90,14 @@ class VisitPhotoResource extends Resource
             ->reorderable('sort_order')
             ->defaultSort('sort_order')
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Foto'),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Foto'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([DeleteBulkAction::make()]),

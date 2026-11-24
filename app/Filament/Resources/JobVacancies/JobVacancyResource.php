@@ -28,13 +28,17 @@ class JobVacancyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Karir';
+
+    protected static ?string $navigationLabel = 'Data Lowongan Kerja';
+
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?string $modelLabel = 'Lowongan';
+    protected static ?string $modelLabel = 'Lowongan Kerja';
 
-    protected static ?string $pluralModelLabel = 'Lowongan';
+    protected static ?string $pluralModelLabel = 'Data Lowongan Kerja';
 
-    protected static ?int $navigationSort = 40;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

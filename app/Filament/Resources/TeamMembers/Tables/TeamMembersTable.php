@@ -36,8 +36,14 @@ class TeamMembersTable
             ->reorderable('sort_order')
             ->defaultSort('sort_order')
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Ubah Anggota Tim'),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Anggota Tim'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

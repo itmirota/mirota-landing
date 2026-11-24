@@ -22,13 +22,15 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
+    protected static ?string $navigationLabel = 'Users Management';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = 'Pengguna';
 
-    protected static ?string $pluralModelLabel = 'Pengguna';
+    protected static ?string $pluralModelLabel = 'Users Management';
 
-    protected static ?int $navigationSort = 99;
+    protected static ?int $navigationSort = 12;
 
     protected static function actor(): ?User
     {

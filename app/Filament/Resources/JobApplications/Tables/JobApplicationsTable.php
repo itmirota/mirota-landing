@@ -68,6 +68,9 @@ class JobApplicationsTable
             ->recordActions([
                 ViewAction::make()
                     ->label('Detail')
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Lihat Detail')
                     ->modalHeading(
                         fn (JobApplication $record): string =>
                             'Lamaran: '.$record->name
@@ -81,6 +84,9 @@ class JobApplicationsTable
                 Action::make('cv')
                     ->label('Unduh CV')
                     ->icon(Heroicon::OutlinedArrowDownTray)
+                    ->iconButton()
+                    ->color('warning')
+                    ->tooltip('Unduh CV')
                     ->action(function (JobApplication $record) {
                         $user = Filament::auth()->user();
 
@@ -121,6 +127,9 @@ class JobApplicationsTable
                 Action::make('balas')
                     ->label('Balas')
                     ->icon(Heroicon::OutlinedPaperAirplane)
+                    ->iconButton()
+                    ->color('info')
+                    ->tooltip('Kirim Email')
                     ->url(
                         fn (JobApplication $record): string =>
                             'https://mail.google.com/mail/?view=cm&fs=1'
@@ -129,7 +138,10 @@ class JobApplicationsTable
                     )
                     ->openUrlInNewTab(),
 
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->iconButton()
+                    ->color('danger')
+                    ->tooltip('Hapus Lamaran'),
             ]);
     }
 }
