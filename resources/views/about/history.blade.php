@@ -56,39 +56,115 @@
     </div>
 </section>
 
+
+
 {{-- Timeline --}}
 <section class="bg-white py-20">
     <div class="container mx-auto px-6">
+
         <h2 class="text-center text-3xl font-extrabold text-primary md:text-4xl">
             {{ __('about.history.timeline_title') }}
         </h2>
 
-        <div class="relative mx-auto mt-14 max-w-5xl">
-            <div class="absolute left-4 top-0 h-full w-0.5 bg-primary/20 md:left-1/2 md:-translate-x-1/2"></div>
+        <div class="relative mx-auto mt-16 max-w-6xl">
+
+            {{-- Garis Timeline --}}
+            <div class="absolute left-4 top-0 h-full w-0.5 bg-primary/20
+                        md:left-1/2 md:-translate-x-1/2">
+            </div>
 
             @foreach(trans('about.history.timeline') as $i => $item)
-                <div class="relative mb-10 pl-12 md:w-1/2 md:pl-0
-                            {{ $i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:ml-auto md:pl-12' }}">
 
-                    <span class="absolute top-7 left-4 h-5 w-5 -translate-x-1/2 rounded-full border-4 border-white bg-accent shadow
-                                 {{ $i % 2 === 0 ? 'md:left-auto md:right-0 md:translate-x-1/2' : 'md:left-0' }}"></span>
+                @php
+                    $isLeft = $i % 2 === 0;
+                @endphp
 
-                    <div class="rounded-2xl border-t-4 border-primary bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-xl">
-                        <span class="inline-block rounded-full bg-accent px-3 py-1 text-xs font-bold text-white">
+                <div class="relative mb-20 pl-12
+                            md:grid md:grid-cols-2 md:gap-16 md:pl-0">
+
+                    {{-- Titik Timeline --}}
+                    <span class="absolute left-4 top-8 z-20 h-5 w-5
+                                 -translate-x-1/2 rounded-full
+                                 border-4 border-white bg-accent shadow
+                                 md:left-1/2">
+                    </span>
+
+                    {{-- Konten --}}
+                    <div class="{{ $isLeft
+                        ? 'md:col-start-1 md:pr-10 md:text-right'
+                        : 'md:col-start-2 md:pl-10 md:text-left' }}">
+
+                        {{-- Tahun --}}
+                        <h3 class="text-5xl font-light italic tracking-tight
+                                   text-primary md:text-6xl">
                             {{ $item['year'] }}
-                        </span>
-                        <h3 class="mt-3 text-xl font-bold text-primary-dark">{{ $item['title'] }}</h3>
-                        <p class="mt-2 text-sm leading-relaxed text-slate-600">{{ $item['text'] }}</p>
+                        </h3>
+
+                        {{-- Judul --}}
+                        <h4 class="mt-3 text-xl font-bold text-primary-dark">
+                            {{ $item['title'] }}
+                        </h4>
+
+                        {{-- Deskripsi --}}
+                        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+                            {{ $item['text'] }}
+                        </p>
 
                         @if(($item['draft'] ?? false) && app()->environment('local'))
-                            <span class="mt-3 inline-block rounded bg-yellow-100 px-2 py-0.5 text-xs text-yellow-800">DRAF</span>
+                            <span class="mt-3 inline-block rounded bg-yellow-100
+                                         px-2 py-1 text-xs text-yellow-800">
+                                DRAF
+                            </span>
                         @endif
+
                     </div>
+
+                    {{-- Foto di samping titik timeline --}}
+                    @if(!empty($item['image']))
+                        <div class="{{ $isLeft
+                            ? 'md:col-start-2 md:row-start-1 md:pl-10'
+                            : 'md:col-start-1 md:row-start-1 md:pr-10' }}
+                            mt-6 flex items-center justify-center
+                            md:mt-0">
+
+                            <figure class="w-full max-w-md overflow-hidden
+                                           rounded-xl border-2 border-primary
+                                           bg-slate-50 p-2 shadow-lg">
+
+                                <div class="flex h-56 w-full items-center justify-center
+                                            overflow-hidden bg-white md:h-64">
+
+                                    <img
+                                        src="{{ asset($item['image']) }}"
+                                        alt="{{ $item['image_caption'] ?? $item['title'] }}"
+                                        loading="lazy"
+                                        class="h-full w-full object-contain"
+                                    >
+
+                                </div>
+
+                                @if(!empty($item['image_caption']))
+                                    <figcaption class="px-3 py-3 text-center
+                                                       text-xs font-medium
+                                                       text-slate-600">
+                                        {{ $item['image_caption'] }}
+                                    </figcaption>
+                                @endif
+
+                            </figure>
+
+                        </div>
+                    @endif
+
                 </div>
+
             @endforeach
+
         </div>
     </div>
 </section>
+
+
 
 {{-- Galeri foto lama (tampil otomatis kalau fotonya ada) --}}
 @if($gallery->isNotEmpty())

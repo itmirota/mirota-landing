@@ -9,6 +9,7 @@ use App\Models\VisitVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class VisitController extends Controller
 {
@@ -28,11 +29,17 @@ class VisitController extends Controller
             return redirect()->route('visit');
         }
 
-        $data = $request->validate([
+        $rules = [
             'institution'      => ['required', 'string', 'max:150'],
             'contact_name'     => ['required', 'string', 'max:100'],
             'ktp_number'       => ['required_without:npwp', 'nullable', 'digits:16'],
-            'npwp'             => ['required_without:ktp_number', 'nullable', 'regex:/^[0-9.\-\s]{15,25}$/'],
+            'npwp'             => ['nullable', 'string', 'max:30', function ($attribute, $value, $fail) {
+                $digits = preg_replace('/\D/', '', (string) $value);
+
+                if (! in_array(strlen($digits), [15, 16], true)) {
+                    $fail(__('visit.err_npwp_format'));
+                }
+            }],
             'email'            => ['required', 'email', 'max:150'],
             'phone'            => ['required', 'string', 'max:30'],
             'source'           => ['required', Rule::in(['ad', 'website', 'referral', 'mirota_team'])],
@@ -61,7 +68,29 @@ class VisitController extends Controller
             'ktp_photo'        => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'letter'           => ['required', 'file', 'mimes:pdf,doc,docx,jpg,jpeg,png', 'max:3072'],
             'agree'            => ['accepted'],
-        ], [], [
+        ];
+
+        $ktpName    = __('visit.ktp_photo');
+        $letterName = __('visit.letter');
+
+        $messages = [
+            'ktp_number.digits'            => __('visit.err_ktp_digits'),
+            'ktp_number.required_without'  => __('visit.err_id_required'),
+            'preferred_date.after_or_equal'=> __('visit.err_date_future'),
+            'agree.accepted'               => __('visit.err_agree'),
+
+            'ktp_photo.max'      => __('visit.err_file_max',    ['name' => $ktpName, 'max' => '2 MB']),
+            'ktp_photo.uploaded' => __('visit.err_file_upload', ['name' => $ktpName, 'max' => '2 MB']),
+            'ktp_photo.image'    => __('visit.err_file_type',   ['name' => $ktpName, 'types' => 'JPG, PNG']),
+            'ktp_photo.mimes'    => __('visit.err_file_type',   ['name' => $ktpName, 'types' => 'JPG, PNG']),
+
+            'letter.required'    => __('visit.err_letter_required'),
+            'letter.max'         => __('visit.err_file_max',    ['name' => $letterName, 'max' => '3 MB']),
+            'letter.uploaded'    => __('visit.err_file_upload', ['name' => $letterName, 'max' => '3 MB']),
+            'letter.mimes'       => __('visit.err_file_type',   ['name' => $letterName, 'types' => 'PDF, DOC, DOCX, JPG, PNG']),
+        ];
+
+        $attributes = [
             'institution'      => __('visit.institution'),
             'contact_name'     => __('visit.contact_name'),
             'ktp_number'       => __('visit.ktp_number'),
@@ -76,10 +105,19 @@ class VisitController extends Controller
             'department'       => __('visit.department'),
             'visitors'         => __('visit.visitors'),
             'companions'       => __('visit.companions'),
-            'ktp_photo'        => __('visit.ktp_photo'),
-            'letter'           => __('visit.letter'),
+            'ktp_photo'        => $ktpName,
+            'letter'           => $letterName,
             'agree'            => __('visit.terms_button'),
-        ]);
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+        // Gagal: kembali langsung ke formulir (bukan ke puncak halaman).
+        if ($validator->fails()) {
+            return redirect()->to(route('visit').'#form')->withErrors($validator)->withInput();
+        }
+
+        $data = $validator->validated();
 
         // Disimpan di disk bawaan (storage/app/private): tidak bisa dibuka lewat URL.
         $ktpPath    = $request->file('ktp_photo')?->store('visit-requests/ktp');

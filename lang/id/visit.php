@@ -75,6 +75,25 @@ return [
     'file_hint_ktp'    => 'JPG/PNG, maks. 2 MB.',
     'file_hint_letter' => 'PDF/DOC/DOCX/JPG/PNG, maks. 3 MB.',
 
+    'ktp_hint'  => 'Harus 16 digit angka (:n/16)',
+    'npwp_hint' => 'Harus 15 atau 16 digit angka; titik dan strip boleh (:n digit)',
+
+    'file_too_big' => 'Ukuran :name terlalu besar (:size MB). Maksimal :max MB. Silakan pilih berkas yang lebih kecil.',
+    'file_bad_type'=> 'Format :name tidak sesuai. Gunakan berkas berformat :types.',
+
+    'error_summary'    => 'Formulir belum bisa dikirim. Mohon periksa isian berikut:',
+    'error_files_hint' => 'Catatan: Foto KTP dan Surat permohonan perlu dipilih ulang, karena berkas tidak tersimpan saat halaman dimuat ulang.',
+
+    'err_ktp_digits'      => 'No. KTP harus terdiri dari 16 digit angka.',
+    'err_npwp_format'     => 'NPWP harus terdiri dari 15 atau 16 digit angka.',
+    'err_id_required'     => 'Isi minimal salah satu: No. KTP atau NPWP.',
+    'err_date_future'     => 'Tanggal kunjungan minimal besok.',
+    'err_agree'           => 'Anda harus menyetujui Syarat & Ketentuan sebelum mengirim.',
+    'err_file_max'        => 'Ukuran :name melebihi batas. Maksimal :max.',
+    'err_file_upload'     => 'Gagal mengunggah :name. Kemungkinan ukuran berkas melebihi batas :max. Silakan pilih berkas yang lebih kecil.',
+    'err_file_type'       => 'Format :name tidak sesuai. Gunakan berkas berformat :types.',
+    'err_letter_required' => 'Surat permohonan kunjungan wajib dilampirkan.',
+
     'agree'    => 'Saya telah membaca dan menyetujui',
     'submit'   => 'Kirim Pengajuan',
     'sending'  => 'Mengirim...',

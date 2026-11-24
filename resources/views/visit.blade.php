@@ -194,10 +194,48 @@
     $field = 'w-full bg-transparent py-4 text-slate-700 outline-none placeholder:text-slate-500';
     $inner = 'w-full bg-transparent pb-2.5 pt-0.5 text-slate-700 outline-none';
     $label = 'block pt-2 text-xs text-slate-500';
+    $formMsg = [
+    'big'      => __('visit.file_too_big'),
+    'type'     => __('visit.file_bad_type'),
+    'ktpHint'  => __('visit.ktp_hint'),
+    'npwpHint' => __('visit.npwp_hint'),
+    'labels'   => ['ktp_photo' => __('visit.ktp_photo'), 'letter' => __('visit.letter')],
+];
 @endphp
 
 <section id="form" class="scroll-mt-24 bg-linear-to-b from-white to-sky/60 py-16"
-         x-data="{ terms: false, sending: false, source: @js(old('source', '')) }"
+         x-data="{
+             terms: false,
+             sending: false,
+             source: @js(old('source', '')),
+             ktp: @js(old('ktp_number', '')),
+             npwp: @js(old('npwp', '')),
+             fileErr: { ktp_photo: '', letter: '' },
+             msg: @js($formMsg),
+             get npwpDigits() { return this.npwp.replace(/\D/g, '').length },
+             checkFile(event, key, maxMb, exts) {
+                 const input = event.target;
+                 const file = input.files[0];
+                 this.fileErr[key] = '';
+                 if (!file) return;
+                 const label = this.msg.labels[key];
+                 const ext = file.name.split('.').pop().toLowerCase();
+                 if (!exts.includes(ext)) {
+                     this.fileErr[key] = this.msg.type.replace(':name', label).replace(':types', exts.join(', ').toUpperCase());
+                     input.value = '';
+                 } else if (file.size > maxMb * 1048576) {
+                     this.fileErr[key] = this.msg.big.replace(':name', label).replace(':size', (file.size / 1048576).toFixed(1)).replace(':max', maxMb);
+                     input.value = '';
+                 }
+             },
+             onSubmit(event) {
+                 if (this.fileErr.ktp_photo || this.fileErr.letter) {
+                     event.preventDefault();
+                     return;
+                 }
+                 this.sending = true;
+             }
+         }"
          x-effect="document.body.classList.toggle('overflow-hidden', terms)"
          @keydown.escape.window="terms = false">
 
@@ -214,8 +252,21 @@
             <div class="mt-5 rounded-lg border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800">{{ session('success') }}</div>
         @endif
 
+        @if($errors->any())
+            <div x-init="$nextTick(() => $el.scrollIntoView({ behavior: 'smooth', block: 'start' }))"
+                class="mt-5 scroll-mt-28 rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-800" role="alert">
+                <p class="font-bold">{{ __('visit.error_summary') }}</p>
+                <ul class="mt-2 list-disc space-y-1 pl-5">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <p class="mt-3 text-xs text-red-700">{{ __('visit.error_files_hint') }}</p>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('visit.store') }}" enctype="multipart/form-data"
-              @submit="sending = true" class="mt-6">
+              @submit="onSubmit($event)" class="mt-6">
             @csrf
 
             <div class="hidden" aria-hidden="true">
@@ -231,7 +282,7 @@
                             <input name="institution" value="{{ old('institution') }}" required
                                    placeholder="{{ __('visit.institution') }}" aria-label="{{ __('visit.institution') }}" class="{{ $field }}">
                         </div>
-                        @error('institution') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
@@ -239,24 +290,32 @@
                             <input name="contact_name" value="{{ old('contact_name') }}" required
                                    placeholder="{{ __('visit.contact_name') }}" aria-label="{{ __('visit.contact_name') }}" class="{{ $field }}">
                         </div>
-                        @error('contact_name') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                       <x-form-error name="$1" />
                     </div>
 
                     <div>
                         <div class="{{ $box }}">
-                            <input name="npwp" value="{{ old('npwp') }}" inputmode="numeric"
-                                   placeholder="{{ __('visit.npwp') }}" aria-label="{{ __('visit.npwp') }}" class="{{ $field }}">
+                            <input name="npwp" x-model="npwp" @input="npwp = npwp.replace(/[^0-9.\-\s]/g, '').slice(0, 24)"
+                                inputmode="numeric"
+                                placeholder="{{ __('visit.npwp') }}" aria-label="{{ __('visit.npwp') }}" class="{{ $field }}">
                         </div>
-                        @error('npwp') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <p class="mt-1 text-xs"
+                        :class="npwpDigits === 0 ? 'text-slate-500' : ([15, 16].includes(npwpDigits) ? 'text-green-600' : 'text-amber-600')"
+                        x-text="msg.npwpHint.replace(':n', npwpDigits)"></p>
+                        <x-form-error name="npwp" />
                     </div>
 
                     <div>
                         <div class="{{ $box }}">
-                            <input name="ktp_number" value="{{ old('ktp_number') }}" inputmode="numeric" maxlength="16"
-                                   placeholder="{{ __('visit.ktp_number') }}" aria-label="{{ __('visit.ktp_number') }}" class="{{ $field }}">
+                            <input name="ktp_number" x-model="ktp" @input="ktp = ktp.replace(/\D/g, '').slice(0, 16)"
+                                inputmode="numeric" maxlength="16"
+                                placeholder="{{ __('visit.ktp_number') }}" aria-label="{{ __('visit.ktp_number') }}" class="{{ $field }}">
                         </div>
-                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.id_hint') }}</p>
-                        @error('ktp_number') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <p class="mt-1 text-xs"
+                        :class="ktp.length === 16 ? 'text-green-600' : (ktp.length ? 'text-amber-600' : 'text-slate-500')"
+                        x-text="msg.ktpHint.replace(':n', ktp.length)"></p>
+                        <p class="mt-0.5 text-xs text-slate-500">{{ __('visit.id_hint') }}</p>
+                        <x-form-error name="ktp_number" />
                     </div>
 
                     <div>
@@ -264,7 +323,7 @@
                             <input type="email" name="email" value="{{ old('email') }}" required
                                    placeholder="Email" aria-label="Email" class="{{ $field }}">
                         </div>
-                        @error('email') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
@@ -272,7 +331,7 @@
                             <input name="phone" value="{{ old('phone') }}" required inputmode="tel"
                                    placeholder="{{ __('visit.phone') }}" aria-label="{{ __('visit.phone') }}" class="{{ $field }}">
                         </div>
-                        @error('phone') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        
                     </div>
 
                     <div>
@@ -285,7 +344,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        @error('source') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     {{-- Muncul hanya jika memilih "Tim Mirota" --}}
@@ -295,7 +354,7 @@
                                    :required="source === 'mirota_team'"
                                    placeholder="{{ __('visit.mirota_team_name') }}" aria-label="{{ __('visit.mirota_team_name') }}" class="{{ $field }}">
                         </div>
-                        @error('mirota_team_name') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
                 </div>
 
@@ -311,7 +370,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        @error('province') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
@@ -320,7 +379,7 @@
                                       placeholder="{{ __('visit.address') }}" aria-label="{{ __('visit.address') }}"
                                       class="{{ $field }} resize-y">{{ old('address') }}</textarea>
                         </div>
-                        @error('address') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
@@ -331,7 +390,7 @@
                                    value="{{ old('preferred_date') }}" required class="{{ $inner }}">
                         </div>
                         <p class="mt-1 text-xs text-slate-500">{{ __('visit.visit_at_hint') }}</p>
-                        @error('preferred_date') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
@@ -339,7 +398,7 @@
                             <input name="department" value="{{ old('department') }}"
                                    placeholder="{{ __('visit.department') }}" aria-label="{{ __('visit.department') }}" class="{{ $field }}">
                         </div>
-                        @error('department') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                       <x-form-error name="$1" />
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -348,36 +407,43 @@
                                 <input type="number" name="visitors" min="1" max="500" value="{{ old('visitors') }}" required
                                        placeholder="{{ __('visit.visitors') }}" aria-label="{{ __('visit.visitors') }}" class="{{ $field }}">
                             </div>
-                            @error('visitors') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                           <x-form-error name="$1" />
                         </div>
                         <div>
                             <div class="{{ $box }}">
                                 <input type="number" name="companions" min="0" max="100" value="{{ old('companions') }}"
                                     placeholder="{{ __('visit.companions') }}" aria-label="{{ __('visit.companions') }}" class="{{ $field }}">
                             </div>
-                            @error('companions') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                            <x-form-error name="$1" />
                         </div>
                     </div>
 
                     <div>
-                        <div class="{{ $box }}">
+                        <div class="{{ $box }}" :class="fileErr.ktp_photo && 'border-red-400 ring-2 ring-red-100'">
                             <label for="ktp_photo" class="{{ $label }}">{{ __('visit.ktp_photo') }}</label>
                             <input id="ktp_photo" type="file" name="ktp_photo" accept=".jpg,.jpeg,.png"
-                                   class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
+                                @change="checkFile($event, 'ktp_photo', 2, ['jpg', 'jpeg', 'png'])"
+                                class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
                         </div>
                         <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_ktp') }}</p>
-                        @error('ktp_photo') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <p x-show="fileErr.ktp_photo" x-cloak x-text="fileErr.ktp_photo" role="alert"
+                        class="mt-1.5 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"></p>
+                        <x-form-error name="ktp_photo" />
                     </div>
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <label for="letter" class="{{ $label }}">{{ __('visit.letter') }}</label>
-                            <input id="letter" type="file" name="letter" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required
-                                   class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
-                        </div>
-                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_letter') }}</p>
-                        @error('letter') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                <div>
+                    <div class="{{ $box }}" :class="fileErr.letter && 'border-red-400 ring-2 ring-red-100'">
+                        <label for="letter" class="{{ $label }}">{{ __('visit.letter') }}</label>
+                        <input id="letter" type="file" name="letter" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required
+                            @change="checkFile($event, 'letter', 3, ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'])"
+                            class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
                     </div>
+                    <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_letter') }}</p>
+                    <p x-show="fileErr.letter" x-cloak x-text="fileErr.letter" role="alert"
+                    class="mt-1.5 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"></p>
+                    <x-form-error name="letter" />
+                </div>
+                
                 </div>
             </div>
 
@@ -391,7 +457,7 @@
                         <button type="button" @click="terms = true" class="font-semibold text-primary underline">{{ __('visit.terms_button') }}</button>.
                     </span>
                 </label>
-                @error('agree') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                <x-form-error name="$1" />
 
                 <p class="mt-3 text-xs text-slate-500">
                     {{ __('contact.privacy_note') }}

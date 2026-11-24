@@ -75,6 +75,25 @@ return [
     'file_hint_ktp'    => 'JPG/PNG, max. 2 MB.',
     'file_hint_letter' => 'PDF/DOC/DOCX/JPG/PNG, max. 3 MB.',
 
+    'ktp_hint'  => 'Must be 16 digits (:n/16)',
+    'npwp_hint' => 'Must be 15 or 16 digits; dots and dashes are allowed (:n digits)',
+
+    'file_too_big' => 'The :name file is too large (:size MB). Maximum is :max MB. Please choose a smaller file.',
+    'file_bad_type'=> 'The :name file format is not accepted. Use :types.',
+
+    'error_summary'    => 'The form could not be submitted. Please check the following:',
+    'error_files_hint' => 'Note: please select the KTP photo and request letter again, since files are not kept when the page reloads.',
+
+    'err_ktp_digits'      => 'The KTP number must be exactly 16 digits.',
+    'err_npwp_format'     => 'The NPWP must be 15 or 16 digits.',
+    'err_id_required'     => 'Fill in at least one: KTP number or NPWP.',
+    'err_date_future'     => 'The visit date must be tomorrow or later.',
+    'err_agree'           => 'You must agree to the Terms & Conditions before submitting.',
+    'err_file_max'        => 'The :name file exceeds the limit. Maximum is :max.',
+    'err_file_upload'     => 'Failed to upload :name. The file size probably exceeds the :max limit. Please choose a smaller file.',
+    'err_file_type'       => 'The :name file format is not accepted. Use :types.',
+    'err_letter_required' => 'The visit request letter is required.',
+
     'agree'    => 'I have read and agree to the',
     'submit'   => 'Submit Request',
     'sending'  => 'Sending...',

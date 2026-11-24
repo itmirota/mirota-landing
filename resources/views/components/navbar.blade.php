@@ -1,7 +1,7 @@
 @php
     $l = app()->getLocale();
 
-    // Halaman yang belum dibuat akan 404 dulu, kita isi bertahap.
+    // Halaman yang belum dibuat akan 404 dulu.
     $menu = [
         ['label' => __('nav.home'), 'href' => route('home'), 'match' => $l],
         ['label' => __('nav.about'), 'match' => "$l/tentang-kami*", 'children' => [

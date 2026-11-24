@@ -29,6 +29,7 @@ return [
         'title'    => 'Tim Kami',
         'subtitle' => 'Orang-orang di balik produk dan layanan Mirota.',
         'empty'    => 'Data tim belum tersedia.',
+        'intro' => 'Berikut orang-orang di balik produk, mutu, dan layanan PT Mirota KSM.',
     ],
 
     'jobs' => [

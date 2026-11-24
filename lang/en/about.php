@@ -1,3 +1,4 @@
+
 <?php
 
 return [
@@ -7,11 +8,13 @@ return [
         'intro'    => 'In the 1950s, Mrs. Tini Yuniarti and her husband, Mr. Hendro Sutikno, started a small-scale cake business. It later grew into various businesses under the name MIROTA.',
         'heading' => 'History of PT Mirota KSM',
         'gallery' => 'Our Journey in Photos',
+
         'stats' => [
             ['value' => '1972', 'label' => 'CV Mirota KSM founded'],
             ['value' => '1973', 'label' => 'Became PT Mirota KSM'],
             ['value' => '50+',  'label' => 'Years of service'],
         ],
+
         'names' => [
             [
                 'name'   => 'MIROTA',
@@ -24,33 +27,48 @@ return [
                 'text'   => 'Kinder means children, Sugar means sweet, and Milk means milk. Together, KSM stands for "Sweet Milk for Children".',
             ],
         ],
+
         'timeline_title' => 'Our Journey',
+
         'timeline' => [
             [
-                'year'  => '1950s',
-                'title' => 'The Beginning',
-                'text'  => 'Mrs. Tini Yuniarti and Mr. Hendro Sutikno began producing cakes on a small scale, which grew into various businesses under the name MIROTA.',
+                'year'  => '1950',
+                'title' => 'The Beginning of MIROTA',
+                'text'  => 'In the 1950s, Mrs. Tini Yuniarti and Mr. Hendro Sutikno started a small-scale cake business, which eventually developed into various businesses under the name MIROTA.',
+                'image' => 'images/timeline/mirota-1950.jpg',
+                'image_caption' => 'Mr. Hendro Sutikno and Mrs. Tini Yuniarti',
             ],
+
             [
-                'year'  => '11 July 1972',
-                'title' => 'CV Mirota KSM, Inc',
-                'text'  => 'Driven by passion and hard work, the founders established a new business in the dairy industry, officially named CV Mirota KSM, Inc.',
+                'year'  => '1972',
+                'title' => 'Establishment of CV Mirota KSM',
+                'text'  => 'Through dedication and hard work, the founders established a dairy business under the name CV Mirota KSM on 11 July 1972.',
+                'image' => 'images/timeline/mirota-1972.jpg',
+                'image_caption' => 'The establishment of CV Mirota KSM',
             ],
+
             [
-                'year'  => '15 November 1973',
-                'title' => 'PT Mirota KSM',
-                'text'  => 'As the business evolved, CV Mirota KSM, Inc applied for a PMDN (Domestic Investment) license for the pharmaceutical industry, and its name changed to PT Mirota KSM.',
+                'year'  => '1973',
+                'title' => 'Transformation into PT Mirota KSM',
+                'text'  => 'As the business continued to grow, CV Mirota KSM changed its legal status into a Limited Liability Company (PT) on 15 November 1973.',
+                'image' => 'images/timeline/mirota-1973.jpg',
+                'image_caption' => 'PT Mirota KSM in 1973',
             ],
+
             [
-                'year'  => '2022',
-                'title' => '50 Years of Mirota KSM',
-                'text'  => '[Sample] Celebrating half a century of Mirota KSM. Fill in with official milestones and achievements.',
-                'draft' => true,
+                'year'  => '1990',
+                'title' => 'Business Growth and Recognition',
+                'text'  => 'Throughout its journey, the company continued to expand its business with the support of its family and team, receiving various awards and recognition for its achievements.',
+                'image' => 'images/timeline/mirota-1990.jpg',
+                'image_caption' => 'Mr. Siswanto presenting an award',
             ],
+
             [
-                'year'  => 'Today',
-                'title' => 'Committed to Quality and Innovation',
-                'text'  => 'To this day, PT Mirota KSM consistently produces high-quality, innovative, safe products that benefit society.',
+                'year'  => '2026',
+                'title' => 'Continuing a Legacy of Excellence',
+                'text'  => 'PT Mirota KSM continues to grow through dedication, hard work, and teamwork, delivering high-quality products to consumers across Indonesia.',
+                'image' => 'images/timeline/mirota-2026.jpg',
+                'image_caption' => 'PT Mirota KSM team celebrating its 53st anniversary',
             ],
         ],
     ],
@@ -59,13 +77,18 @@ return [
         'title'         => 'Vision, Mission & Culture',
         'subtitle'      => 'The direction and values that guide every step we take.',
         'vision_label'  => 'Vision',
-        'vision'        => '[Sample] To be a trusted nutrition company that benefits the health of Indonesian society.',
+        'vision'        => 'To become a leading dairy company in Indonesia',
         'mission_label' => 'Mission',
         'missions'      => [
-            '[Sample] Produce high-quality, safe, and nutritious products.',
-            '[Sample] Keep innovating to meet the needs of consumers and partners.',
-            '[Sample] Be a reliable and professional contract manufacturing partner.',
-            '[Sample] Develop our people and care for the environment.',
+            'Producing high-quality, safe, and halal products oriented toward consumer needs',
+            'Executing production processes effectively and efficiently',
+            'Remaining adaptive to the latest advancements in technology and science',
+            'Developing a dynamic organization with professional, multitasking human resources',
+            'Fostering organizational synergy focused on achieving company goals',
+            'Implementing an optimal and accountable corporate financial management system',
+            'Providing customers with the best experience through high-quality products',
+            'Ensuring good distribution practices',
+            'Seizing opportunities effectively and innovatively with a focus on results',
         ],
         'culture_label' => 'Company Culture',
         'values' => [
@@ -89,7 +112,7 @@ return [
         ],
         'cert_title' => 'Certifications',
         'certs' => [
-            ['name' => '[Sample] ISO 9001',  'scope' => 'Quality Management System',   'number' => 'Certificate no.: [fill in official number]'],
+            ['name' => '[Sample] ISO 9001', 'scope' => 'Quality Management System', 'number' => 'Certificate no.: [fill in official number]'],
             ['name' => '[Sample] ISO 22000', 'scope' => 'Food Safety Management System', 'number' => 'Certificate no.: [fill in official number]'],
         ],
     ],

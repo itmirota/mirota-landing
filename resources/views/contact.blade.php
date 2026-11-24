@@ -74,24 +74,24 @@
                                 </label>
                             @endforeach
                         </div>
-                        @error('type') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div class="grid gap-5 sm:grid-cols-2">
                         <div>
                             <label for="name" class="text-sm font-semibold text-slate-700">{{ __('contact.name') }} *</label>
                             <input id="name" name="name" value="{{ old('name') }}" required class="{{ $input }}">
-                            @error('name') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                            <x-form-error name="$1" />
                         </div>
                         <div>
                             <label for="email" class="text-sm font-semibold text-slate-700">Email *</label>
                             <input id="email" type="email" name="email" value="{{ old('email') }}" required class="{{ $input }}">
-                            @error('email') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                            <x-form-error name="$1" />
                         </div>
                         <div>
                             <label for="phone" class="text-sm font-semibold text-slate-700">{{ __('contact.phone') }}</label>
                             <input id="phone" name="phone" value="{{ old('phone') }}" class="{{ $input }}">
-                            @error('phone') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                            <x-form-error name="$1" />
                         </div>
                         <div>
                             <label for="company" class="text-sm font-semibold text-slate-700">{{ __('contact.company') }}</label>
@@ -102,7 +102,7 @@
                     <div>
                         <label for="message" class="text-sm font-semibold text-slate-700">{{ __('contact.message') }} *</label>
                         <textarea id="message" name="message" rows="5" required class="{{ $input }}">{{ old('message') }}</textarea>
-                        @error('message') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <p class="text-xs text-slate-500">

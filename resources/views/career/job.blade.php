@@ -62,19 +62,19 @@
                     <div>
                         <label for="name" class="text-sm font-semibold text-slate-700">{{ __('contact.name') }} *</label>
                         <input id="name" name="name" value="{{ old('name') }}" required class="{{ $input }}">
-                        @error('name') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
                         <label for="email" class="text-sm font-semibold text-slate-700">Email *</label>
                         <input id="email" type="email" name="email" value="{{ old('email') }}" required class="{{ $input }}">
-                        @error('email') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
                         <label for="phone" class="text-sm font-semibold text-slate-700">{{ __('visit.phone') }} *</label>
                         <input id="phone" name="phone" value="{{ old('phone') }}" required class="{{ $input }}">
-                        @error('phone') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
@@ -82,13 +82,13 @@
                         <input id="cv" type="file" name="cv" accept=".pdf,.doc,.docx" required
                                class="mt-1 block w-full text-sm text-slate-600 file:mr-4 file:rounded-lg file:border-0 file:bg-primary/10 file:px-4 file:py-2 file:font-semibold file:text-primary hover:file:bg-primary/20">
                         <p class="mt-1 text-xs text-slate-400">{{ __('career.job.cv_hint') }}</p>
-                        @error('cv') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                        <x-form-error name="$1" />
                     </div>
 
                     <div>
                         <label for="cover_letter" class="text-sm font-semibold text-slate-700">{{ __('career.job.cover') }}</label>
                         <textarea id="cover_letter" name="cover_letter" rows="4" class="{{ $input }}">{{ old('cover_letter') }}</textarea>
-                        @error('cover_letter') <p class="mt-1 text-xs text-accent">{{ $message }}</p> @enderror
+                       <x-form-error name="$1" />
                     </div>
 
                     <p class="text-xs text-slate-500">
