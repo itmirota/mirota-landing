@@ -22,7 +22,7 @@ return [
         [
             'icon' => '🧪',
             'title' => 'Formula Development',
-            'text' => '[Sample] A team that helps design formulas for your brand.',
+            'text' => 'A team that helps design formulas for your brand.',
         ],
         [
             'icon' => '✅',
@@ -32,7 +32,7 @@ return [
         [
             'icon' => '🤝',
             'title' => 'Flexible Partnership',
-            'text' => '[Sample] Production scale and packaging tailored to your needs.',
+            'text' => 'Production scale and packaging tailored to your needs.',
         ],
     ],
 

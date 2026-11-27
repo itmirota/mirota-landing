@@ -1,7 +1,7 @@
 <?php
 return [
     'title'   => 'Privacy Policy',
-    'updated' => 'Last updated: [fill in date]',
+    'updated' => 'Last updated: 01/12/2026',
     'toc'     => 'Contents',
 
     'sections' => [

@@ -55,6 +55,17 @@ class JobVacancy extends Model
         return $this->hasMany(JobApplication::class);
     }
 
+    public function daysLeft(): ?int
+    {
+        if (! $this->closing_date) {
+            return null;
+        }
+
+        $closing = \Illuminate\Support\Carbon::parse($this->closing_date)->startOfDay();
+
+        return max(0, (int) today()->diffInDays($closing, false));
+    }
+
     /** Markdown -> HTML aman. */
     public function html(string $attribute): string
     {

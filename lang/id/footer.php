@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'tagline'  => 'Produsen makanan dan minuman bernutrisi untuk keluarga Indonesia.',
+    'tagline'  => 'Produksi Susu Berkualitas, Riset Inovatif, Distribusi Luas dan Jaminan Mutu.',
     'company'  => 'Perusahaan',
     'services' => 'Layanan',
     'privacy'  => 'Kebijakan Privasi',

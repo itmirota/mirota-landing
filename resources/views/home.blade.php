@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <x-hero />
+    <x-hero :banners="$banners" />
     <x-sections.keunggulan />
     <x-sections.about-teaser />
     <x-sections.featured-products :products="$products" />

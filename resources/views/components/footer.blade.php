@@ -3,59 +3,130 @@
 <footer class="bg-primary-dark text-white">
     <div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
 
-        {{-- Brand + sosial media --}}
-        <div>
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('images/mirota.png') }}"
-                    alt="PT Mirota KSM"
-                    class="h-10 w-auto rounded bg-white p-1">
+ 
+
+{{-- Brand + sosial media --}}
+<div>
+    <a href="{{ route('home') }}">
+        <img src="{{ asset('images/mirota.png') }}"
+             alt="PT Mirota KSM"
+             class="h-10 w-auto object-contain">
+    </a>
+
+    <p class="mt-4 text-sm text-white/80">
+        {{ __('footer.tagline') }}
+    </p>
+
+    <div class="mt-5 flex flex-wrap items-center gap-3">
+
+        {{-- Instagram --}}
+        @if(filled(config('company.social.instagram')))
+            <a href="{{ config('company.social.instagram') }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Instagram PT Mirota KSM"
+               class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white transition hover:scale-110">
+
+                <svg class="h-6 w-6" viewBox="0 0 24 24"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="instagram-gradient"
+                            x1="3" y1="21" x2="21" y2="3"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FEDA75"/>
+                            <stop offset="0.35" stop-color="#FA7E1E"/>
+                            <stop offset="0.65" stop-color="#D62976"/>
+                            <stop offset="1" stop-color="#4F5BD5"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="3" y="3" width="18" height="18" rx="5"
+                          stroke="url(#instagram-gradient)" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="4"
+                            stroke="url(#instagram-gradient)" stroke-width="2"/>
+                    <circle cx="17.5" cy="6.5" r="1.2"
+                            fill="#D62976"/>
+                </svg>
             </a>
+        @endif
 
-            <p class="mt-4 text-sm text-white/80">{{ __('footer.tagline') }}</p>
+        {{-- TikTok --}}
+        @if(filled(config('company.social.tiktok')))
+            <a href="{{ config('company.social.tiktok') }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="TikTok PT Mirota KSM"
+               class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white transition hover:scale-110">
 
-            <div class="mt-5 flex items-center gap-3">
+                <svg class="h-6 w-6" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#25F4EE"
+                        d="M15.5 3h-3.2v12.1a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V9.1a6 6 0 1 0 5.1 5.9V8.8a8 8 0 0 0 4.5 1.4V7a4.8 4.8 0 0 1-4.5-4z"
+                        transform="translate(-0.8 0.3)"/>
+                    <path fill="#FE2C55"
+                        d="M15.5 3h-3.2v12.1a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V9.1a6 6 0 1 0 5.1 5.9V8.8a8 8 0 0 0 4.5 1.4V7a4.8 4.8 0 0 1-4.5-4z"
+                        transform="translate(0.5 0.2)"/>
+                    <path fill="#111111"
+                        d="M15.5 3h-3.2v12.1a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V9.1a6 6 0 1 0 5.1 5.9V8.8a8 8 0 0 0 4.5 1.4V7a4.8 4.8 0 0 1-4.5-4z"/>
+                </svg>
+            </a>
+        @endif
 
-                {{-- Instagram --}}
-                @if(filled(config('company.social.instagram')))
-                    <a href="{{ config('company.social.instagram') }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram PT Mirota KSM"
-                    class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-accent hover:scale-110">
+        {{-- Shopee --}}
+        @if(filled(config('company.social.shopee')))
+            <a href="{{ config('company.social.shopee') }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Shopee PT Mirota KSM"
+               class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white transition hover:scale-110">
 
-                        <svg class="h-5 w-5" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="5"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <circle cx="17.5" cy="6.5" r="1"
-                                    fill="currentColor" stroke="none"/>
-                        </svg>
-                    </a>
-                @endif
+                <svg class="h-6 w-6" viewBox="0 0 24 24"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 8h14l1.3 13H3.7L5 8Z"
+                          stroke="#EE4D2D" stroke-width="1.8"
+                          stroke-linejoin="round"/>
+                    <path d="M9 8V6a3 3 0 0 1 6 0v2"
+                          stroke="#EE4D2D" stroke-width="1.8"
+                          stroke-linecap="round"/>
+                    <text x="12" y="17" text-anchor="middle"
+                          fill="#EE4D2D" font-size="10"
+                          font-weight="bold">S</text>
+                </svg>
+            </a>
+        @endif
 
-                {{-- TikTok --}}
-                @if(filled(config('company.social.tiktok')))
-                    <a href="{{ config('company.social.tiktok') }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="TikTok PT Mirota KSM"
-                    class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 transition hover:bg-accent hover:scale-110">
+        {{-- Tokopedia --}}
+        @if(filled(config('company.social.tokopedia')))
+            <a href="{{ config('company.social.tokopedia') }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Tokopedia PT Mirota KSM"
+               class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white transition hover:scale-110">
 
-                        <svg class="h-5 w-5" viewBox="0 0 24 24"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.33V2h-3.35v13.67a2.9 2.9 0 0 1-2.9 2.9
-                            2.9 2.9 0 1 1 2.9-2.9c0-.15-.01-.3-.02-.45V8.8
-                            a6.3 6.3 0 1 0 3.37 5.57V9.6a8.16 8.16 0 0 0 4.77 1.53V7.78
-                            a4.85 4.85 0 0 1-1-.09z"/>
-                        </svg>
-                    </a>
-                @endif
+                <svg class="h-6 w-6" viewBox="0 0 24 24"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 8.5 6.5 5h11L19 8.5V20H5V8.5Z"
+                          fill="#03AC0E"/>
+                    <path d="M9 5V4a3 3 0 0 1 6 0v1"
+                          stroke="#03AC0E" stroke-width="1.6"
+                          stroke-linecap="round"/>
+                    <circle cx="9.5" cy="11.5" r="2"
+                            fill="white"/>
+                    <circle cx="14.5" cy="11.5" r="2"
+                            fill="white"/>
+                    <circle cx="10" cy="11.5" r=".7"
+                            fill="#03AC0E"/>
+                    <circle cx="14" cy="11.5" r=".7"
+                            fill="#03AC0E"/>
+                    <path d="M10 16q2 1.8 4 0"
+                          stroke="white" stroke-width="1.3"
+                          stroke-linecap="round"/>
+                </svg>
+            </a>
+        @endif
 
-            </div>
-        </div>
+    </div>
+</div>
+
 
         {{-- Perusahaan --}}
         <div>

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'tagline'  => 'Manufacturer of nutritious food and beverages for Indonesian families.',
+    'tagline'  => 'Quality Milk Production, Innovative Research, Wide Distribution, and Quality Assurance.',
     'company'  => 'Company',
     'services' => 'Services',
     'privacy'  => 'Privacy Policy',

@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
-    {
-        $locale = $request->route('locale');
+    {  
+    $locale = $request->route('locale');
 
         app()->setLocale($locale);
         \Illuminate\Support\Carbon::setLocale($locale);

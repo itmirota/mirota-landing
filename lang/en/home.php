@@ -37,7 +37,7 @@ return [
     'maklon_points'  => [
         ['title' => 'Modern Facility', 'text' => 'Modern machinery for consistent quality.'],
         ['title' => 'Assured Quality', 'text' => 'Processes follow strict and measurable quality standards.'],
-        ['title' => 'Trusted Partner', 'text' => '[Sample] Trusted by various brands to produce their products.'],
+        ['title' => 'Trusted Partner', 'text' => 'Trusted by various brands to produce their products.'],
     ],
 
     // Latest articles

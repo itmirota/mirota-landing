@@ -37,7 +37,7 @@ return [
     'maklon_points'  => [
         ['title' => 'Fasilitas Modern', 'text' => 'Mesin produksi modern untuk kualitas yang konsisten.'],
         ['title' => 'Mutu Terjamin',    'text' => 'Proses mengikuti standar mutu yang ketat dan terukur.'],
-        ['title' => 'Mitra Terpercaya', 'text' => '[Contoh] Dipercaya berbagai brand untuk produksi produknya.'],
+        ['title' => 'Mitra Terpercaya', 'text' => 'Dipercaya berbagai brand untuk produksi produknya.'],
     ],
 
     // Artikel terbaru

@@ -55,6 +55,15 @@
     @stack('head')
 </head>
 <body class="bg-white font-sans text-slate-700 antialiased" x-data="{ open: false }">
+    <div id="page-progress" aria-hidden="true"></div>
+    <div id="page-loader" aria-hidden="true">
+    <svg viewBox="0 0 100 50" class="page-loader-svg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path class="loader-track"
+              d="M25 25 C25 10, 45 10, 50 25 C55 40, 75 40, 75 25 C75 10, 55 10, 50 25 C45 40, 25 40, 25 25 Z"/>
+        <path class="loader-runner" pathLength="100"
+              d="M25 25 C25 10, 45 10, 50 25 C55 40, 75 40, 75 25 C75 10, 55 10, 50 25 C45 40, 25 40, 25 25 Z"/>
+    </svg>
+</div>
 
     <x-navbar />
 

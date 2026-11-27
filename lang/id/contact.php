@@ -21,4 +21,9 @@ return [
 
     'address_title' => 'Alamat Kami',
     'hours' => 'Senin–Jumat, 08.00–17.00 WIB',
+
+    'whatsapp_messages' => [
+    'customer_care' => 'Halo PT Mirota KSM, saya ingin bertanya mengenai produk Mirota. Mohon informasinya. Terima kasih.',
+    'maklon' => 'Halo PT Mirota KSM, saya ingin berkonsultasi mengenai layanan maklon. Apakah saya bisa mendapatkan informasi lebih lanjut? Terima kasih.',
+    ],
 ];

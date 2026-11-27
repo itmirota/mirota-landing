@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\JobApplications\Schemas;
 
+use App\Models\JobApplication;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -39,15 +40,22 @@ class JobApplicationForm
                     TextInput::make('email')->label('Email'),
 
                     TextInput::make('phone')->label('Telepon / WhatsApp'),
+
+                    Textarea::make('address')
+                        ->label('Alamat domisili')
+                        ->rows(2)
+                        ->placeholder('-')
+                        ->columnSpanFull(),
                 ]),
 
+            // Hanya tampil untuk lamaran lama yang punya surat lamaran.
             Section::make('Surat Lamaran')
                 ->columnSpanFull()
+                ->visible(fn (?JobApplication $record): bool => filled($record?->cover_letter))
                 ->schema([
                     Textarea::make('cover_letter')
                         ->label('Isi')
-                        ->rows(8)
-                        ->placeholder('Pelamar tidak menulis surat lamaran.'),
+                        ->rows(6),
                 ]),
         ]);
     }

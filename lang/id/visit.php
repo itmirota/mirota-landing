@@ -8,28 +8,30 @@ return [
     'intro_title' => 'Belajar Langsung dari Industri',
     'intro_text'  => 'Kami membuka pintu bagi sekolah, perguruan tinggi, dan instansi yang ingin mengenal proses produksi susu dan minuman serbuk secara langsung.',
 
-    'benefits' => [
-        [
-            'icon'  => '🏭',
-            'title' => 'Tur Pabrik',
-            'text'  => '[Contoh] Melihat area dan alur produksi dengan didampingi pemandu.',
-        ],
-        [
-            'icon'  => '🎓',
-            'title' => 'Materi Edukasi',
-            'text'  => '[Contoh] Pemaparan tentang mutu, keamanan pangan, dan sejarah Mirota.',
-        ],
-        [
-            'icon'  => '💬',
-            'title' => 'Sesi Tanya Jawab',
-            'text'  => '[Contoh] Berdiskusi langsung dengan tim yang berpengalaman.',
-        ],
-        [
-            'icon'  => '🎁',
-            'title' => 'Cenderamata',
-            'text'  => '[Contoh] Produk dan cinderamata dari Mirota untuk peserta.',
-        ],
+    
+'benefits' => [
+    [
+        'icon'  => '📋',
+        'title' => 'Penyampaian Materi',
+        'text'  => 'Pengenalan perusahaan serta informasi mengenai proses produksi dan produk Mirota KSM di aula.',
     ],
+    [
+        'icon'  => '🏭',
+        'title' => 'Tur Pabrik',
+        'text'  => 'Keliling dan Melihat secara langsung area dan proses produksi di pabrik PT Mirota KSM.',
+    ],
+    [
+        'icon'  => '🥛',
+        'title' => 'Menikmati Produk',
+        'text'  => 'Kesempatan untuk mencicipi produk susu Mirota KSM.',
+    ],
+    [
+        'icon'  => '📷',
+        'title' => 'Foto Bersama',
+        'text'  => 'Mengabadikan momen kunjungan bersama peserta dan tim PT Mirota KSM.',
+    ],
+],
+
 
     'gallery_title'      => 'Galeri Kunjungan',
     'video_title'        => 'Video Kunjungan',

@@ -22,7 +22,7 @@ return [
         [
             'icon' => '🧪',
             'title' => 'Pengembangan Formula',
-            'text' => '[Contoh] Tim yang membantu merancang formula sesuai kebutuhan brand Anda.',
+            'text' => 'Tim yang membantu merancang formula sesuai kebutuhan brand Anda.',
         ],
         [
             'icon' => '✅',
@@ -32,7 +32,7 @@ return [
         [
             'icon' => '🤝',
             'title' => 'Kerja Sama Fleksibel',
-            'text' => '[Contoh] Skala produksi dan kemasan disesuaikan dengan kebutuhan Anda.',
+            'text' => 'Skala produksi dan kemasan disesuaikan dengan kebutuhan Anda.',
         ],
     ],
 

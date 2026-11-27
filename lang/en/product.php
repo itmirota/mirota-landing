@@ -15,4 +15,5 @@ return [
     'ask'        => 'Ask About This Product',
     'maklon_cta' => 'Contract Manufacturing',
     'related'    => 'More Products',
+    'buy_now' => 'Buy Now',
 ];

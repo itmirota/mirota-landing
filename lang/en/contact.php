@@ -21,4 +21,9 @@ return [
 
     'address_title' => 'Our Address',
     'hours' => '[Sample] Monday–Friday, 08:00–16:00 WIB (UTC+7)',
+
+    'whatsapp_messages' => [
+    'customer_care' => 'Hello PT Mirota KSM, I would like to ask about Mirota products. Could you please provide more information? Thank you.',
+    'maklon' => 'Hello PT Mirota KSM, I would like to consult about your contract manufacturing services. Could you please provide more information? Thank you.',
+],
 ];

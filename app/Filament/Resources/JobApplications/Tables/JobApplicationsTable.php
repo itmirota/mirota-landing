@@ -6,6 +6,7 @@ use App\Filament\Resources\JobApplications\Schemas\JobApplicationForm;
 use App\Models\JobApplication;
 use App\Models\User;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Facades\Filament;
@@ -68,80 +69,64 @@ class JobApplicationsTable
             ->recordActions([
                 ViewAction::make()
                     ->label('Detail')
-                    ->iconButton()
-                    ->color('info')
-                    ->tooltip('Lihat Detail')
-                    ->modalHeading(
-                        fn (JobApplication $record): string =>
-                            'Lamaran: '.$record->name
-                    )
-                    ->modalDescription(
-                        fn (JobApplication $record): string =>
-                            'Masuk '.$record->created_at->translatedFormat('d F Y, H:i')
-                    ),
+                    ->modalHeading(fn (JobApplication $record): string => 'Lamaran: '.$record->name)
+                    ->modalDescription(fn (JobApplication $record): string => 'Masuk '.$record->created_at->translatedFormat('d F Y, H:i')),
 
-                // Unduh CV hanya untuk pengguna yang memiliki izin applications.
-                Action::make('cv')
-                    ->label('Unduh CV')
-                    ->icon(Heroicon::OutlinedArrowDownTray)
-                    ->iconButton()
-                    ->color('warning')
-                    ->tooltip('Unduh CV')
-                    ->action(function (JobApplication $record) {
-                        $user = Filament::auth()->user();
+                // Berkas tersimpan di disk privat; hanya bisa diunduh lewat tombol ini oleh yang berizin.
+                ActionGroup::make([
+                    Action::make('cv')
+                        ->label('Unduh CV')
+                        ->icon(Heroicon::OutlinedArrowDownTray)
+                        ->visible(fn (JobApplication $record): bool => filled($record->cv_path))
+                        ->action(fn (JobApplication $record) => self::download($record, 'cv_path', 'CV')),
 
-                        abort_unless(
-                            $user instanceof User && $user->canManage('applications'),
-                            403
-                        );
+                    Action::make('ijazah')
+                        ->label('Unduh Ijazah')
+                        ->icon(Heroicon::OutlinedAcademicCap)
+                        ->visible(fn (JobApplication $record): bool => filled($record->diploma_path))
+                        ->action(fn (JobApplication $record) => self::download($record, 'diploma_path', 'Ijazah')),
 
-                        $disk = Storage::disk(config('filesystems.default'));
-
-                        if (
-                            ! $record->cv_path ||
-                            ! $disk->exists($record->cv_path)
-                        ) {
-                            Notification::make()
-                                ->title('File CV tidak ditemukan')
-                                ->danger()
-                                ->send();
-
-                            return null;
-                        }
-
-                        $extension = pathinfo(
-                            $record->cv_path,
-                            PATHINFO_EXTENSION
-                        );
-
-                        $filename = 'CV-'
-                            .Str::slug($record->name)
-                            .'.'.$extension;
-
-                        return response()->download(
-                            $disk->path($record->cv_path),
-                            $filename
-                        );
-                    }),
+                    Action::make('lampiran')
+                        ->label('Unduh Lampiran')
+                        ->icon(Heroicon::OutlinedPaperClip)
+                        ->visible(fn (JobApplication $record): bool => filled($record->attachment_path))
+                        ->action(fn (JobApplication $record) => self::download($record, 'attachment_path', 'Lampiran')),
+                ])
+                    ->label('Berkas')
+                    ->icon(Heroicon::OutlinedFolderArrowDown)
+                    ->button(),
 
                 Action::make('balas')
                     ->label('Balas')
                     ->icon(Heroicon::OutlinedPaperAirplane)
-                    ->iconButton()
-                    ->color('info')
-                    ->tooltip('Kirim Email')
-                    ->url(
-                        fn (JobApplication $record): string =>
-                            'https://mail.google.com/mail/?view=cm&fs=1'
-                            .'&to='.rawurlencode($record->email)
-                            .'&su='.rawurlencode('Lamaran Anda di PT Mirota KSM')
-                    )
+                    ->url(fn (JobApplication $record): string => 'https://mail.google.com/mail/?view=cm&fs=1'
+                        .'&to='.rawurlencode($record->email)
+                        .'&su='.rawurlencode('Lamaran Anda di PT Mirota KSM'))
                     ->openUrlInNewTab(),
 
-                DeleteAction::make()
-                    ->iconButton()
-                    ->color('danger')
-                    ->tooltip('Hapus Lamaran'),
+                DeleteAction::make(),
             ]);
+    }
+
+    protected static function download(JobApplication $record, string $column, string $prefix)
+    {
+        /** @var User|null $user */
+        $user = Filament::auth()->user();
+        abort_unless($user?->canManage('applications'), 403);
+
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk(config('filesystems.default'));
+        $path = $record->{$column};
+
+        if (! $path || ! $disk->exists($path)) {
+            Notification::make()->title('File tidak ditemukan')->danger()->send();
+
+            return null;
+        }
+
+        return $disk->download(
+            $path,
+            $prefix.'-'.Str::slug($record->name).'.'.pathinfo($path, PATHINFO_EXTENSION)
+        );
     }
 }

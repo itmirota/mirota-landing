@@ -15,4 +15,5 @@ return [
     'ask'        => 'Tanya Produk Ini',
     'maklon_cta' => 'Layanan Maklon',
     'related'    => 'Produk Lainnya',
+    'buy_now' => 'Beli Sekarang',
 ];

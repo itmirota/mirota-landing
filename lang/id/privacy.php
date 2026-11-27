@@ -1,7 +1,7 @@
 <?php
 return [
     'title'   => 'Kebijakan Privasi',
-    'updated' => 'Terakhir diperbarui: [isi tanggal]',
+    'updated' => 'Terakhir diperbarui: 01/12/2026',
     'toc'     => 'Daftar Isi',
 
     'sections' => [

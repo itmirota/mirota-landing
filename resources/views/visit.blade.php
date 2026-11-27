@@ -273,180 +273,117 @@
                 <input type="text" name="website" tabindex="-1" autocomplete="off">
             </div>
 
-            <div class="grid gap-4 md:grid-cols-2">
+<div class="grid gap-4 md:grid-cols-2">
 
-                {{-- Kolom kiri --}}
-                <div class="space-y-4">
-                    <div>
-                        <div class="{{ $box }}">
-                            <input name="institution" value="{{ old('institution') }}" required
-                                   placeholder="{{ __('visit.institution') }}" aria-label="{{ __('visit.institution') }}" class="{{ $field }}">
-                        </div>
-                        <x-form-error name="$1" />
-                    </div>
+    {{-- Kolom kiri --}}
+    <div class="space-y-4">
+        <x-float-input name="institution" :label="__('visit.institution')" required />
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <input name="contact_name" value="{{ old('contact_name') }}" required
-                                   placeholder="{{ __('visit.contact_name') }}" aria-label="{{ __('visit.contact_name') }}" class="{{ $field }}">
-                        </div>
-                       <x-form-error name="$1" />
-                    </div>
+        <x-float-input name="contact_name" :label="__('visit.contact_name')" required />
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <input name="npwp" x-model="npwp" @input="npwp = npwp.replace(/[^0-9.\-\s]/g, '').slice(0, 24)"
-                                inputmode="numeric"
-                                placeholder="{{ __('visit.npwp') }}" aria-label="{{ __('visit.npwp') }}" class="{{ $field }}">
-                        </div>
-                        <p class="mt-1 text-xs"
-                        :class="npwpDigits === 0 ? 'text-slate-500' : ([15, 16].includes(npwpDigits) ? 'text-green-600' : 'text-amber-600')"
-                        x-text="msg.npwpHint.replace(':n', npwpDigits)"></p>
-                        <x-form-error name="npwp" />
-                    </div>
+        <x-float-input name="npwp" :label="__('visit.npwp')" inputmode="numeric"
+                       x-model="npwp"
+                       x-on:input="npwp = npwp.replace(/[^0-9.\-\s]/g, '').slice(0, 24)">
+            <p class="mt-1 text-xs"
+               :class="npwpDigits === 0 ? 'text-slate-500' : ([15, 16].includes(npwpDigits) ? 'text-green-600' : 'text-amber-600')"
+               x-text="msg.npwpHint.replace(':n', npwpDigits)"></p>
+        </x-float-input>
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <input name="ktp_number" x-model="ktp" @input="ktp = ktp.replace(/\D/g, '').slice(0, 16)"
-                                inputmode="numeric" maxlength="16"
-                                placeholder="{{ __('visit.ktp_number') }}" aria-label="{{ __('visit.ktp_number') }}" class="{{ $field }}">
-                        </div>
-                        <p class="mt-1 text-xs"
-                        :class="ktp.length === 16 ? 'text-green-600' : (ktp.length ? 'text-amber-600' : 'text-slate-500')"
-                        x-text="msg.ktpHint.replace(':n', ktp.length)"></p>
-                        <p class="mt-0.5 text-xs text-slate-500">{{ __('visit.id_hint') }}</p>
-                        <x-form-error name="ktp_number" />
-                    </div>
+        <x-float-input name="ktp_number" :label="__('visit.ktp_number')" inputmode="numeric" maxlength="16"
+                       x-model="ktp"
+                       x-on:input="ktp = ktp.replace(/\D/g, '').slice(0, 16)">
+            <p class="mt-1 text-xs"
+               :class="ktp.length === 16 ? 'text-green-600' : (ktp.length ? 'text-amber-600' : 'text-slate-500')"
+               x-text="msg.ktpHint.replace(':n', ktp.length)"></p>
+            <p class="mt-0.5 text-xs text-slate-500">{{ __('visit.id_hint') }}</p>
+        </x-float-input>
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <input type="email" name="email" value="{{ old('email') }}" required
-                                   placeholder="Email" aria-label="Email" class="{{ $field }}">
-                        </div>
-                        <x-form-error name="$1" />
-                    </div>
+        <x-float-input name="email" type="email" label="Email" required />
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <input name="phone" value="{{ old('phone') }}" required inputmode="tel"
-                                   placeholder="{{ __('visit.phone') }}" aria-label="{{ __('visit.phone') }}" class="{{ $field }}">
-                        </div>
-                        
-                    </div>
+        <x-float-input name="phone" :label="__('visit.phone')" inputmode="tel" required />
 
-                    <div>
-                        <div class="{{ $box }}">
-                            <label for="source" class="{{ $label }}">{{ __('visit.source_label') }}</label>
-                            <select id="source" name="source" x-model="source" required class="{{ $inner }}">
-                                <option value="">{{ __('visit.source_placeholder') }}</option>
-                                @foreach(trans('visit.sources') as $key => $text)
-                                    <option value="{{ $key }}">{{ $text }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <x-form-error name="$1" />
-                    </div>
-
-                    {{-- Muncul hanya jika memilih "Tim Mirota" --}}
-                    <div x-show="source === 'mirota_team'" x-cloak x-transition>
-                        <div class="{{ $box }}">
-                            <input name="mirota_team_name" value="{{ old('mirota_team_name') }}"
-                                   :required="source === 'mirota_team'"
-                                   placeholder="{{ __('visit.mirota_team_name') }}" aria-label="{{ __('visit.mirota_team_name') }}" class="{{ $field }}">
-                        </div>
-                        <x-form-error name="$1" />
-                    </div>
-                </div>
-
-                {{-- Kolom kanan --}}
-                <div class="space-y-4">
-                    <div>
-                        <div class="{{ $box }}">
-                            <label for="province" class="{{ $label }}">{{ __('visit.province_label') }}</label>
-                            <select id="province" name="province" required class="{{ $inner }}">
-                                <option value="">{{ __('visit.province_placeholder') }}</option>
-                                @foreach(config('provinces') as $province)
-                                    <option value="{{ $province }}" @selected(old('province') === $province)>{{ $province }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <x-form-error name="$1" />
-                    </div>
-
-                    <div>
-                        <div class="{{ $box }}">
-                            <textarea name="address" rows="4" required
-                                      placeholder="{{ __('visit.address') }}" aria-label="{{ __('visit.address') }}"
-                                      class="{{ $field }} resize-y">{{ old('address') }}</textarea>
-                        </div>
-                        <x-form-error name="$1" />
-                    </div>
-
-                    <div>
-                        <div class="{{ $box }}">
-                            <label for="preferred_date" class="{{ $label }}">{{ __('visit.visit_at') }}</label>
-                            <input id="preferred_date" type="datetime-local" name="preferred_date" step="900"
-                                   min="{{ now()->addDay()->format('Y-m-d\T00:00') }}"
-                                   value="{{ old('preferred_date') }}" required class="{{ $inner }}">
-                        </div>
-                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.visit_at_hint') }}</p>
-                        <x-form-error name="$1" />
-                    </div>
-
-                    <div>
-                        <div class="{{ $box }}">
-                            <input name="department" value="{{ old('department') }}"
-                                   placeholder="{{ __('visit.department') }}" aria-label="{{ __('visit.department') }}" class="{{ $field }}">
-                        </div>
-                       <x-form-error name="$1" />
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="{{ $box }}">
-                                <input type="number" name="visitors" min="1" max="500" value="{{ old('visitors') }}" required
-                                       placeholder="{{ __('visit.visitors') }}" aria-label="{{ __('visit.visitors') }}" class="{{ $field }}">
-                            </div>
-                           <x-form-error name="$1" />
-                        </div>
-                        <div>
-                            <div class="{{ $box }}">
-                                <input type="number" name="companions" min="0" max="100" value="{{ old('companions') }}"
-                                    placeholder="{{ __('visit.companions') }}" aria-label="{{ __('visit.companions') }}" class="{{ $field }}">
-                            </div>
-                            <x-form-error name="$1" />
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="{{ $box }}" :class="fileErr.ktp_photo && 'border-red-400 ring-2 ring-red-100'">
-                            <label for="ktp_photo" class="{{ $label }}">{{ __('visit.ktp_photo') }}</label>
-                            <input id="ktp_photo" type="file" name="ktp_photo" accept=".jpg,.jpeg,.png"
-                                @change="checkFile($event, 'ktp_photo', 2, ['jpg', 'jpeg', 'png'])"
-                                class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
-                        </div>
-                        <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_ktp') }}</p>
-                        <p x-show="fileErr.ktp_photo" x-cloak x-text="fileErr.ktp_photo" role="alert"
-                        class="mt-1.5 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"></p>
-                        <x-form-error name="ktp_photo" />
-                    </div>
-
-                <div>
-                    <div class="{{ $box }}" :class="fileErr.letter && 'border-red-400 ring-2 ring-red-100'">
-                        <label for="letter" class="{{ $label }}">{{ __('visit.letter') }}</label>
-                        <input id="letter" type="file" name="letter" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required
-                            @change="checkFile($event, 'letter', 3, ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'])"
-                            class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
-                    </div>
-                    <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_letter') }}</p>
-                    <p x-show="fileErr.letter" x-cloak x-text="fileErr.letter" role="alert"
-                    class="mt-1.5 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"></p>
-                    <x-form-error name="letter" />
-                </div>
-                
-                </div>
+        <div>
+            <div class="{{ $box }}">
+                <label for="source" class="{{ $label }}">{{ __('visit.source_label') }}</label>
+                <select id="source" name="source" x-model="source" required class="{{ $inner }}">
+                    <option value="">{{ __('visit.source_placeholder') }}</option>
+                    @foreach(trans('visit.sources') as $key => $text)
+                        <option value="{{ $key }}">{{ $text }}</option>
+                    @endforeach
+                </select>
             </div>
+            <x-form-error name="source" />
+        </div>
 
+        {{-- Muncul hanya jika memilih "Tim Mirota" --}}
+        <div x-show="source === 'mirota_team'" x-cloak x-transition>
+            <x-float-input name="mirota_team_name" :label="__('visit.mirota_team_name')"
+                           x-bind:required="source === 'mirota_team'" />
+        </div>
+    </div>
+
+    {{-- Kolom kanan --}}
+    <div class="space-y-4">
+        <div>
+            <div class="{{ $box }}">
+                <label for="province" class="{{ $label }}">{{ __('visit.province_label') }}</label>
+                <select id="province" name="province" required class="{{ $inner }}">
+                    <option value="">{{ __('visit.province_placeholder') }}</option>
+                    @foreach(config('provinces') as $province)
+                        <option value="{{ $province }}" @selected(old('province') === $province)>{{ $province }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <x-form-error name="province" />
+        </div>
+
+        <x-float-textarea name="address" :label="__('visit.address')" rows="3" required />
+
+        <div>
+            <div class="{{ $box }}">
+                <label for="preferred_date" class="{{ $label }}">{{ __('visit.visit_at') }}</label>
+                <input id="preferred_date" type="datetime-local" name="preferred_date" step="900"
+                       min="{{ now()->addDay()->format('Y-m-d\T00:00') }}"
+                       value="{{ old('preferred_date') }}" required class="{{ $inner }}">
+            </div>
+            <p class="mt-1 text-xs text-slate-500">{{ __('visit.visit_at_hint') }}</p>
+            <x-form-error name="preferred_date" />
+        </div>
+
+        <x-float-input name="department" :label="__('visit.department')" />
+
+        <div class="grid grid-cols-2 gap-4">
+            <x-float-input name="visitors" type="number" :label="__('visit.visitors')" min="1" max="500" required />
+            <x-float-input name="companions" type="number" :label="__('visit.companions')" min="0" max="100" />
+        </div>
+
+        <div>
+            <div class="{{ $box }}" :class="fileErr.ktp_photo && 'border-red-400 ring-2 ring-red-100'">
+                <label for="ktp_photo" class="{{ $label }}">{{ __('visit.ktp_photo') }}</label>
+                <input id="ktp_photo" type="file" name="ktp_photo" accept=".jpg,.jpeg,.png"
+                       @change="checkFile($event, 'ktp_photo', 2, ['jpg', 'jpeg', 'png'])"
+                       class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
+            </div>
+            <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_ktp') }}</p>
+            <p x-show="fileErr.ktp_photo" x-cloak x-text="fileErr.ktp_photo" role="alert"
+               class="mt-1.5 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"></p>
+            <x-form-error name="ktp_photo" />
+        </div>
+
+        <div>
+            <div class="{{ $box }}" :class="fileErr.letter && 'border-red-400 ring-2 ring-red-100'">
+                <label for="letter" class="{{ $label }}">{{ __('visit.letter') }}</label>
+                <input id="letter" type="file" name="letter" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required
+                       @change="checkFile($event, 'letter', 3, ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'])"
+                       class="{{ $inner }} text-sm file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-slate-700">
+            </div>
+            <p class="mt-1 text-xs text-slate-500">{{ __('visit.file_hint_letter') }}</p>
+            <p x-show="fileErr.letter" x-cloak x-text="fileErr.letter" role="alert"
+               class="mt-1.5 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"></p>
+            <x-form-error name="letter" />
+        </div>
+    </div>
+</div>
             {{-- Persetujuan + kirim --}}
             <div class="mt-6">
                 <label class="flex items-start gap-3 text-sm text-slate-700">
@@ -464,11 +401,14 @@
                     <a href="{{ route('privacy') }}" class="font-semibold text-primary underline">{{ __('footer.privacy') }}</a>.
                 </p>
 
+            {{-- Tombol Ajukan Kunjungan --}}
+            <div class="mt-5 flex justify-end">
                 <button type="submit" :disabled="sending"
-                        class="mt-5 rounded-lg bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60">
+                        class="rounded-lg bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60">
                     <span x-show="!sending">{{ __('visit.submit') }}</span>
                     <span x-show="sending" x-cloak>{{ __('visit.sending') }}</span>
                 </button>
+            </div>
             </div>
         </form>
     </div>
@@ -487,18 +427,14 @@
                 </button>
             </div>
 
-            <div class="overflow-y-auto px-6 py-5 text-sm leading-relaxed text-slate-700">
-                <ol class="list-decimal space-y-3 pl-5">
-                    @foreach(trans('visit.terms') as $term)
-                        <li class="pl-1">{{ $term }}</li>
-                    @endforeach
-                </ol>
+            <div class="overflow-y-auto px-6 py-5">
+                <div class="terms-content prose prose-sm prose-slate max-w-none prose-li:my-2 prose-blockquote:rounded-lg prose-blockquote:border-0 prose-blockquote:bg-sky/60 prose-blockquote:p-4 prose-blockquote:font-semibold prose-blockquote:not-italic prose-blockquote:text-primary-dark">
+                    {!! $termsHtml !!}
+                </div>
 
-                <p class="mt-6 rounded-lg bg-sky/60 p-4 font-semibold text-primary-dark">{{ __('visit.terms_note') }}</p>
-
-                <p class="mt-5 font-bold text-accent">
-                    {{ __('visit.terms_pic') }}: {{ __('visit.terms_pic_number') }}
-                </p>
+                @if(filled($picPhone))
+                    <p class="mt-5 font-bold text-accent">{{ __('visit.terms_pic') }} : {{ $picPhone }}</p>
+                @endif
             </div>
 
             <div class="border-t px-6 py-4 text-right">

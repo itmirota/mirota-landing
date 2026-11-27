@@ -8,28 +8,30 @@ return [
     'intro_title' => 'Learn Directly from the Industry',
     'intro_text'  => 'We welcome schools, universities, and institutions interested in learning about the production process of powdered milk and beverages firsthand.',
 
-    'benefits' => [
-        [
-            'icon'  => '🏭',
-            'title' => 'Factory Tour',
-            'text'  => '[Example] Explore the production areas and processes with a tour guide.',
-        ],
-        [
-            'icon'  => '🎓',
-            'title' => 'Educational Materials',
-            'text'  => '[Example] Learn about quality, food safety, and Mirota history.',
-        ],
-        [
-            'icon'  => '💬',
-            'title' => 'Q&A Session',
-            'text'  => '[Example] Have discussions directly with our experienced team.',
-        ],
-        [
-            'icon'  => '🎁',
-            'title' => 'Souvenirs',
-            'text'  => '[Example] Mirota products and souvenirs for participants.',
-        ],
+   
+'benefits' => [
+    [
+        'icon'  => '📋',
+        'title' => 'Presentation Session',
+        'text'  => 'An introduction to the company, including information about the production process and Mirota KSM products.',
     ],
+    [
+        'icon'  => '🏭',
+        'title' => 'Factory Tour',
+        'text'  => 'Touring and observing the production area and processes firsthand at the PT Mirota KSM factory.',
+    ],
+    [
+        'icon'  => '🥛',
+        'title' => 'Product Tasting',
+        'text'  => 'An opportunity to taste Mirota KSM milk products.',
+    ],
+    [
+        'icon'  => '📷',
+        'title' => 'Group Photo',
+        'text'  => 'Capture the visit with fellow participants and the PT Mirota KSM team.',
+    ],
+],
+
 
     'gallery_title'      => 'Visit Gallery',
     'video_title'        => 'Visit Video',

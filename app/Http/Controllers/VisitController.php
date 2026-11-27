@@ -10,15 +10,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use App\Models\VisitTermsPage;
+use Illuminate\Support\Str;
 
 class VisitController extends Controller
 {
     public function index()
     {
+        // Kalau belum ada di database, pakai teks bawaan dari file bahasa.
+        $terms = VisitTermsPage::first() ?? new VisitTermsPage(VisitTermsPage::defaults());
+
         return view('visit', [
             'photos'       => VisitPhoto::where('is_published', true)->orderBy('sort_order')->latest('visited_at')->get(),
             'videos'       => VisitVideo::where('is_published', true)->orderBy('sort_order')->get(),
             'institutions' => VisitInstitution::where('is_published', true)->orderBy('sort_order')->get(),
+            'termsHtml'    => Str::markdown((string) $terms->localized('content'), [
+                'html_input'         => 'strip',
+                'allow_unsafe_links' => false,
+            ]),
+            'picPhone'     => $terms->pic_phone,
         ]);
     }
 

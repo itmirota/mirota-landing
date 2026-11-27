@@ -9,5 +9,6 @@ return [
         'careers'      => 'Karir (lowongan & tim)',
         'applications' => 'Lamaran Kerja (data pribadi pelamar)',
         'messages'     => 'Pesan Kontak',
+        'banners' => 'Banner Beranda',
     ],
 ];
